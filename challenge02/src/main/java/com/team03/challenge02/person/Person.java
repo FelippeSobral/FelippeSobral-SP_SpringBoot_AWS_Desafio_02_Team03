@@ -13,13 +13,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class Person {
-            @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
-            private long id;
-            private String firstName;
-            private String lastName;
-            private String email;
-            private LocalDate birthDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private LocalDate birthDate;
 
 
 }
