@@ -3,6 +3,7 @@
     import com.team03.challenge02.course.entity.Course;
     import com.team03.challenge02.discipline.entity.Discipline;
     import com.team03.challenge02.person.Person;
+    import com.team03.challenge02.roles.Role;
     import jakarta.persistence.*;
     import lombok.AllArgsConstructor;
     import lombok.Getter;
@@ -12,6 +13,8 @@
     import java.io.Serializable;
     import java.util.ArrayList;
     import java.util.List;
+
+    import static com.team03.challenge02.roles.Role.ROLE_TEACHER;
 
     @Entity
     @AllArgsConstructor
@@ -30,6 +33,8 @@
 
         @OneToMany(mappedBy = "discipline") //Esperar criação dos atributos da classe Discipline para corrigir o mappedBy
         private List<Discipline> substituteSubjects = new ArrayList<>();
+
+        private Role role = ROLE_TEACHER;
 
         @Override
         public String toString() {
