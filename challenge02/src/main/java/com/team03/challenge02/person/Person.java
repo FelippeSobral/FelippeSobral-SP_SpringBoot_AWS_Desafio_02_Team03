@@ -2,6 +2,7 @@ package com.team03.challenge02.person;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -17,13 +18,16 @@ public abstract class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
-    @notblank
+    @NotBlank(message = "The field cant be blank")
     private String firstName;
     @Column(nullable = false)
+    @NotBlank(message = "The field cant be blank")
     private String lastName;
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "The field cant be blank")
     private String email;
     @Column(nullable = false)
+    @NotBlank(message = "The field cant be blank")
     private LocalDate birthDate;
 
     @Override
