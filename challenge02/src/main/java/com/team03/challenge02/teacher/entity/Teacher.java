@@ -12,7 +12,6 @@
     import java.io.Serializable;
     import java.util.ArrayList;
     import java.util.List;
-    import java.util.Objects;
 
     @Entity
     @AllArgsConstructor
@@ -32,6 +31,12 @@
         @OneToMany(mappedBy = "discipline") //Esperar criação dos atributos da classe Discipline para corrigir o mappedBy
         private List<Discipline> substituteSubjects = new ArrayList<>();
 
-
-
+        @Override
+        public String toString() {
+            return "Teacher{" +
+                    "course=" + course +
+                    ", holdingSubjects=" + holdingSubjects +
+                    ", substituteSubjects=" + substituteSubjects +
+                    "} " + super.toString();
+        }
     }
