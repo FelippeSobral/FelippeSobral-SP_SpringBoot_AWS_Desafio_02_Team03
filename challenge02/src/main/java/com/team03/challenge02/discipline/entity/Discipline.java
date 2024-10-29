@@ -3,6 +3,7 @@ package com.team03.challenge02.discipline.entity;
 import com.team03.challenge02.student.entity.Student;
 import com.team03.challenge02.teacher.entity.Teacher;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,20 +22,22 @@ public class Discipline implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
     @Column (name = "discription", nullable = false)
     private String discription;
 
-    @JoinColumn(name = "full_teacher_id")
+    @JoinColumn(name = "full_teacher_id", nullable = false)
     @ManyToOne
     private Teacher fullTeacher;
-    @JoinColumn(name = "substitute_teacher_id")
+    @JoinColumn(name = "substitute_teacher_id", nullable = false)
     @ManyToOne
     private Teacher substituteTeacher;
+
     @JoinColumn (name = "student_id")
-    @OneToMany
-    private List<Student> students = new ArrayList<>();
+    @ManyToMany
+    @Size(max = 10)
+    private List<Student> students;
 
 
     @Override
