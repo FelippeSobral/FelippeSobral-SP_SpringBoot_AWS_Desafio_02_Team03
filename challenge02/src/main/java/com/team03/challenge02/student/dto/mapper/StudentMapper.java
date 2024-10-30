@@ -11,18 +11,18 @@ public class StudentMapper {
         return new ModelMapper().map(studentDto,Student.class);
     }
 
-    public static StudentDto toStudentDto(Student student) {
-       String role = student.getRole().name().substring("ROLE_".length());
-       PropertyMap<Student,StudentDto> props = new PropertyMap<Student,StudentDto>() {
-          @Override
-           protected void configure() {
-                map().setRole(role);
-
-          }
-       };
-       ModelMapper mapper = new ModelMapper();
-       mapper.addMappings(props);
-       return mapper.map(student,StudentDto.class);
-    }
+//    public static StudentDto toStudentDto(Student student) {
+//       String role = student.getRole().name().substring("ROLE_".length());
+//       PropertyMap<Student,StudentDto> props = new PropertyMap<Student,StudentDto>() {
+//          @Override
+//           protected void configure() {
+//                map().setRole(role);
+//
+//          }
+//       };
+//       ModelMapper mapper = new ModelMapper();
+//       mapper.addMappings(props);
+//       return mapper.map(student,StudentDto.class);
+//    }
 
 }

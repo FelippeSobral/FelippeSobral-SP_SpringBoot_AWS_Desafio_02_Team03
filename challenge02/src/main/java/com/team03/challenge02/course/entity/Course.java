@@ -3,15 +3,12 @@ package com.team03.challenge02.course.entity;
 import com.team03.challenge02.coordinator.entity.Coordinator;
 import com.team03.challenge02.discipline.entity.Discipline;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor  @EqualsAndHashCode(of="id")
 @Entity
 @Table(name ="tb_courses")
 
@@ -27,7 +24,6 @@ public class Course {
     @JoinColumn(nullable = false)
     @OneToOne(mappedBy = "course")
     private Coordinator coordinator;
-
     @OneToMany
     @JoinColumn(name = "course_id")
     private List<Discipline> disciplinesList;

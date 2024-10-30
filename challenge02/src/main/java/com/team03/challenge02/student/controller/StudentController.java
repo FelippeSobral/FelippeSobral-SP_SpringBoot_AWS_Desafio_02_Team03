@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping()
 public class StudentController {
-    private final StudentService studentService;
+    //private final StudentService studentService;
 
 }
