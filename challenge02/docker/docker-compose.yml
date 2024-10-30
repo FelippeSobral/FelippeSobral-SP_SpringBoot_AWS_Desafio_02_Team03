@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:latest
+    read_only: false
+    container_name: spring_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: felipe365
+      MYSQL_DATABASE: teste
+      MYSQL_USER: root
+      MYSQL_PASSWORD: felipe365
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    external: true
+
+volumes:
+  mysql_data:

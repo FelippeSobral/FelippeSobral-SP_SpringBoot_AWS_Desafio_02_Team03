@@ -3,6 +3,8 @@ package com.team03.challenge02.coordinator.entity;
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.person.Person;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +17,8 @@ import lombok.Setter;
 
 public class Coordinator extends Person {
 
+    @OneToOne
+    @JoinColumn(name = "course_id")
     private Course course;
 
 }

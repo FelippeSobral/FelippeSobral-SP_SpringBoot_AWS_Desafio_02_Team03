@@ -34,7 +34,10 @@ public class Discipline implements Serializable {
     @ManyToOne
     private Teacher substituteTeacher;
 
-    @JoinColumn (name = "student_id")
+    @JoinTable(
+            name = "discipline_student", // Nome da tabela de junção
+            joinColumns = @JoinColumn(name = "discipline_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
     @ManyToMany
     @Size(max = 10)
     private List<Student> students;

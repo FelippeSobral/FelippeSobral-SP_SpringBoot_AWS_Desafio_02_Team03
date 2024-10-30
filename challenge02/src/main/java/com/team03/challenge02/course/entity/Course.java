@@ -25,9 +25,11 @@ public class Course {
     @Column(name = "description", nullable = false)
     private String description;
     @JoinColumn(nullable = false)
-    @OneToOne
+    @OneToOne(mappedBy = "course")
     private Coordinator coordinator;
 
+    @OneToMany
+    @JoinColumn(name = "course_id")
     private List<Discipline> disciplinesList;
 
 }

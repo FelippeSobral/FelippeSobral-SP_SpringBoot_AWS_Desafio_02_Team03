@@ -28,10 +28,10 @@
         @JoinColumn(name = "course_id")
         private Course course;
 
-        @OneToMany(mappedBy = "discipline") //Esperar criação dos atributos da classe Discipline para corrigir o mappedBy
+        @OneToMany(mappedBy = "fullTeacher") //Esperar criação dos atributos da classe Discipline para corrigir o mappedBy
         private List<Discipline> holdingSubjects = new ArrayList<>();
 
-        @OneToMany(mappedBy = "discipline") //Esperar criação dos atributos da classe Discipline para corrigir o mappedBy
+        @OneToMany(mappedBy = "substituteTeacher") //Esperar criação dos atributos da classe Discipline para corrigir o mappedBy
         private List<Discipline> substituteSubjects = new ArrayList<>();
 
         private Role role = ROLE_TEACHER;
