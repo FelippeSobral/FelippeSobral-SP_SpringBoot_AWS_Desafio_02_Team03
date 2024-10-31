@@ -1,8 +1,9 @@
 package com.team03.challenge02.teacher.controller;
 
-import com.team03.challenge02.teacher.dto.TeacherCreateDTO;
+import com.team03.challenge02.teacher.dto.TeacherDTO;
 import com.team03.challenge02.teacher.entity.Teacher;
 import com.team03.challenge02.teacher.service.TeacherService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,14 @@ public class teacherController {
     }
 
     @PostMapping
-    public Teacher create(@RequestBody Teacher teacher) {
+    public Teacher create(@RequestBody @Valid TeacherDTO teacherDTO) {
+        var teacher = new Teacher(teacherDTO.firstName(),
+                teacherDTO.lastName(),
+                teacherDTO.email(),
+                teacherDTO.birthDate(),
+                null,
+                null,
+                null);
         return teacherService.create(teacher);
     }
 
