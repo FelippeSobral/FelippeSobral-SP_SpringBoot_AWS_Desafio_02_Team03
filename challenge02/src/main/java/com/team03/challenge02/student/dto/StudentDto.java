@@ -16,7 +16,9 @@ public class StudentDto {
     private String lastName;
     private String email;
     private LocalDate birthDate;
-    private Course course;
+    private String course;
     private String adress;
     private String role;
+
+
 }

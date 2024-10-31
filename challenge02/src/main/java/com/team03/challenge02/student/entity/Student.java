@@ -3,10 +3,7 @@ package com.team03.challenge02.student.entity;
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.person.Person;
 import com.team03.challenge02.roles.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +16,13 @@ import static com.team03.challenge02.roles.Role.ROLE_STUDENT;
 @Table(name ="tb_students")
 public class Student extends Person {
 
-    @OneToOne
-    @JoinColumn(name ="course_id")
-    private Course course;
+    //@OneToOne
+    //@JoinColumn(name ="course_id")
+    private String course;
 
     private String adress;
 
+    @Enumerated(EnumType.STRING)
     public Role role = ROLE_STUDENT;
     @Override
     public String toString() {
