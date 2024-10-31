@@ -15,18 +15,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor
-@Entity
-@Table(name ="tb_coordinators")
-
+//@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+//@Entity
+//@Table(name ="tb_coordinators")
 public class Coordinator extends Person {
 
-    @OneToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
-
-    public Coordinator(long id, @NotBlank(message = "The field cant be blank") String firstName, @NotBlank(message = "The field cant be blank") String lastName, @NotBlank(message = "The field cant be blank") String email, @NotNull LocalDate birthDate, Course course) {
-        super(id, firstName, lastName, email, birthDate);
-        this.course = course;
-    }
+//    @OneToOne
+//    @JoinColumn(name = "course_id")
+//    private Course course;
+//
+//    public Coordinator(long id, @NotBlank(message = "The field cant be blank") String firstName, @NotBlank(message = "The field cant be blank") String lastName, @NotBlank(message = "The field cant be blank") String email, @NotNull LocalDate birthDate, Course course) {
+//        super(id, firstName, lastName, email, birthDate);
+//        this.course = course;
+//    }
 }

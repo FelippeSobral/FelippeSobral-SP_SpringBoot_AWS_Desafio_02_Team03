@@ -11,7 +11,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @MappedSuperclass
 @NoArgsConstructor
@@ -19,6 +18,7 @@ import java.util.Objects;
 @Getter
 @Setter
 public abstract class Person implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
@@ -34,37 +34,4 @@ public abstract class Person implements Serializable {
     @Column(nullable = false)
     @NotNull
     private LocalDate birthDate;
-
-    public Person(String firstName, String lastName, String email, LocalDate birthDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.birthDate = birthDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", birthDate=" + birthDate +
-                '}';
-    }
-
-
 }
