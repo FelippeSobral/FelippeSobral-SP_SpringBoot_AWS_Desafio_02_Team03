@@ -9,5 +9,5 @@ import java.util.List;
 
 public class TeacherConstants {
 
-    public static final Teacher TEACHER = new Teacher("nome", "lastname", "felipe@email.com", LocalDate.of(2000,10,14),"" ,"" );
+    //public static final Teacher TEACHER = new Teacher("nome", "lastname", "felipe@email.com", LocalDate.of(2000,10,14),"" ,"" );
 }

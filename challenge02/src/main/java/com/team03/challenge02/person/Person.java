@@ -34,4 +34,11 @@ public abstract class Person implements Serializable {
     @Column(nullable = false)
     @NotNull
     private LocalDate birthDate;
+
+    public Person(String firstName, String lastName, String email, LocalDate birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.birthDate = birthDate;
+    }
 }
