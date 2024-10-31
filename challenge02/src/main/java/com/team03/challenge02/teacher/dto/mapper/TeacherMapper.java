@@ -18,6 +18,6 @@ public class TeacherMapper {
                 new ArrayList<>()
         );
 
-    public TeacherCreateDTO toCreateDTO(Teacher teacher) {
+    //public TeacherCreateDTO toCreateDTO(Teacher teacher) {
     }
 }
