@@ -5,8 +5,7 @@
     import com.team03.challenge02.person.Person;
     import com.team03.challenge02.roles.Role;
     import jakarta.persistence.*;
-    import jakarta.validation.constraints.NotBlank;
-    import jakarta.validation.constraints.NotNull;
+    import jakarta.validation.constraints.*;
     import lombok.*;
 
     import java.io.Serializable;
@@ -16,8 +15,7 @@
 
     import static com.team03.challenge02.roles.Role.ROLE_TEACHER;
 
-    @AllArgsConstructor
-    @NoArgsConstructor
+
     @Getter
     @Setter
     @Entity
@@ -35,14 +33,23 @@
         private List<Discipline> substituteSubjects = new ArrayList<>();
 
         @Enumerated(EnumType.STRING)
-        private Role role;
+        private Role role = ROLE_TEACHER;
 
-        public Teacher(@NotBlank(message = "The field cant be blank") String firstName, @NotBlank(message = "The field cant be blank") String lastName, @NotBlank(message = "The field cant be blank") String email, @NotNull LocalDate birthDate, Course course, List<Discipline> holdingSubjects, List<Discipline> substituteSubjects, Role role) {
+        public Teacher() {
+        }
+
+        public Teacher(
+                String firstName,
+                String lastName,
+                String email,
+                LocalDate birthDate,
+                Course course,
+                List<Discipline> holdingSubjects,
+                List<Discipline> substituteSubjects) {
             super(firstName, lastName, email, birthDate);
             this.course = course;
             this.holdingSubjects = holdingSubjects;
             this.substituteSubjects = substituteSubjects;
-            this.role = role;
         }
 
         @Override

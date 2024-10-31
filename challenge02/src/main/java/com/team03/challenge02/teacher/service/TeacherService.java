@@ -15,7 +15,7 @@ public class TeacherService {
     private TeacherRepository teacherRepository;
 
     @Transactional
-    public Teacher save(Teacher teacher) {
+    public Teacher create(Teacher teacher) {
         return teacherRepository.save(teacher);
     }
 

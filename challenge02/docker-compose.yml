@@ -8,6 +8,7 @@ services:
     ports:
       - "3306:3306"
     environment:
+      ## O USUÁRIO PARA ENTRAR NO BANCO DE DADOS É: ROOT
       MYSQL_ROOT_PASSWORD: felipe123
       MYSQL_DATABASE: school_db
 

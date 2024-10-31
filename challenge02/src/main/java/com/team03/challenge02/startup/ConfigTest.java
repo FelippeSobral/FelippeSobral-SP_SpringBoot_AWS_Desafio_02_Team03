@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static com.team03.challenge02.roles.Role.ROLE_STUDENT;
 import static com.team03.challenge02.roles.Role.ROLE_TEACHER;
 
 @Component
@@ -27,16 +26,6 @@ public class ConfigTest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        try {
-            Optional<Teacher> teacher =  teacherService.getById(1);
-            if (teacher.isPresent()) {
-                Teacher t = teacher.get();
-                t.setRole(ROLE_TEACHER);
-                teacherService.save(t);
-            };
-        }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Falha ao conectar ao banco de dados");
-        }
+
     }
 }
