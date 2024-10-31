@@ -35,6 +35,7 @@
         @Enumerated(EnumType.STRING)
         private Role role = ROLE_TEACHER;
 
+<<<<<<< HEAD
         public Teacher() {
         }
 
@@ -51,18 +52,15 @@
             this.holdingSubjects = holdingSubjects;
             this.substituteSubjects = substituteSubjects;
         }
+=======
+//        public Teacher(@NotBlank(message = "The field cant be blank") String firstName, @NotBlank(message = "The field cant be blank") String lastName, @NotBlank(message = "The field cant be blank") String email, @NotNull LocalDate birthDate, Course course, List<Discipline> holdingSubjects, List<Discipline> substituteSubjects, Role role) {
+//            super(firstName, lastName, email, birthDate);
+//            this.course = course;
+//            this.holdingSubjects = holdingSubjects;
+//            this.substituteSubjects = substituteSubjects;
+//            this.role = role;
+//        }
+>>>>>>> dv2
 
-        @Override
-        public String toString() {
-            return "Teacher{" +
-                    "course=" + course +
-                    ", holdingSubjects=" + holdingSubjects +
-                    ", substituteSubjects=" + substituteSubjects +
-                    ", firstName='" + getFirstName() + '\'' +
-                    ", lastName='" + getLastName() + '\'' +
-                    ", email='" + getEmail() + '\'' +
-                    ", birthDate=" + getBirthDate() +
-                    "} " + super.toString();
-        }
 
     }

@@ -13,7 +13,7 @@ public class TeacherServiceTest {
 
     @Test
     public void createTeacher_WithValidData_ReturnsTeacher() {
-        teacherService.create()
+        //teacherService.create();
 
     }
 }

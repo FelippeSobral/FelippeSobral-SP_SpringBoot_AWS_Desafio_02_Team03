@@ -5,13 +5,22 @@ import com.team03.challenge02.course.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CourseService {
 
-    @Autowired
-    private CourseRepository repository;
+    private final CourseRepository repository;
 
-    public Course save(Course course) {
+    public CourseService(CourseRepository repository) {
+        this.repository = repository;
+    }
+
+    public Course create(Course course) {
         return repository.save(course);
+    }
+
+    public List<Course> findAll(){
+        return repository.findAll();
     }
 }
