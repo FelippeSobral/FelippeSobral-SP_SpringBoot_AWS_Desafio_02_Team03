@@ -8,24 +8,24 @@ import lombok.*;
 import java.util.List;
 
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor  @EqualsAndHashCode(of="id")
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(of="id")
 @Entity
 @Table(name ="tb_courses")
-
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name",unique = true, nullable = false)
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     @OneToOne(mappedBy = "course")
     private Coordinator coordinator;
     @OneToMany
     @JoinColumn(name = "course_id")
     private List<Discipline> disciplinesList;
+
 
 }
