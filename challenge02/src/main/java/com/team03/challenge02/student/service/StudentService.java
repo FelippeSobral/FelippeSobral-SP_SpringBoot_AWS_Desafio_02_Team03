@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -28,7 +30,18 @@ public class StudentService {
                                 + "," + adress.city() + "," + adress.state();
          student.setAdress(completeAdress);
         }
+
+        if (!isOldEnough(student.getBirthDate())) {
+            throw new IllegalArgumentException("The student must be at least 18 years old.");
+        }
+
         return studentRepository.save(student);
+    }
+    private boolean isOldEnough(LocalDate birthdate) {
+        if (birthdate == null) {
+            return false;
+        }
+        return Period.between(birthdate, LocalDate.now()).getYears() >= 18;
     }
     @Transactional(readOnly = true)
     public Student getById(Long id) {
