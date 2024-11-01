@@ -29,4 +29,16 @@ public class CourseController {
         List<Course> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Course> findById(@PathVariable Long id){
+        Course cs = service.findById(id);
+        return ResponseEntity.ok().body(cs);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Course> findByName(@PathVariable String name){
+        Course cs = service.findByNameContaining(name);
+        return ResponseEntity.ok().body(cs);
+    }
 }

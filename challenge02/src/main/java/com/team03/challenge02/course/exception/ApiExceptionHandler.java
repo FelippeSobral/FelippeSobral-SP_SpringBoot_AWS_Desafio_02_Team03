@@ -1,6 +1,7 @@
 package com.team03.challenge02.course.exception;
 
 import com.team03.challenge02.student.exception.ErrorMessage;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,5 +21,26 @@ public class ApiExceptionHandler {
         log.error("Api error - ", ex);
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(st, HttpStatus.UNPROCESSABLE_ENTITY,"Campos duplicados!", rs));
+    }
+
+    @ExceptionHandler(NameUniqueViolationException.class)
+    public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest st){
+        log.error("Api error - ", ex);
+        return ResponseEntity.status(HttpStatus.CONFLICT).contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(st, HttpStatus.CONFLICT,ex.getMessage()));
+    }
+
+    @ExceptionHandler(EntityIdNotFoundException.class)
+    public ResponseEntity<ErrorMessage> entityIdNotFoundException(RuntimeException ex, HttpServletRequest st){
+        log.error("Api error - ", ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(st, HttpStatus.NOT_FOUND,ex.getMessage()));
+    }
+
+    @ExceptionHandler(EntityNameNotFoundException.class)
+    public ResponseEntity<ErrorMessage> entityNameNotFoundException(RuntimeException ex, HttpServletRequest st){
+        log.error("Api error - ", ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(st, HttpStatus.NOT_FOUND,ex.getMessage()));
     }
 }
