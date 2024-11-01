@@ -51,5 +51,7 @@ public class Teacher extends Person implements Serializable {
         this.holdingSubjects = holdingSubjects;
         this.substituteSubjects = substituteSubjects;
     }
+
+
 }
 

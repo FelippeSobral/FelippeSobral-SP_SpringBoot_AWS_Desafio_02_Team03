@@ -6,6 +6,7 @@ import com.team03.challenge02.course.exception.EntityNameNotFoundException;
 import com.team03.challenge02.course.exception.NameUniqueViolationException;
 import com.team03.challenge02.course.repository.CourseRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CourseService {
         this.repository = repository;
     }
 
+    @Transactional
     public Course create(Course course) {
         try {
             return repository.save(course);
