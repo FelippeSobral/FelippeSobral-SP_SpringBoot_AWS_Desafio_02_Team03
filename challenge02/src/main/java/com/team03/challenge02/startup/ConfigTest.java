@@ -39,13 +39,13 @@ public class ConfigTest implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
 
-            Optional<Teacher> optionalSubTeacher = teacherService.getById(2);
+            /*Optional<Teacher> optionalSubTeacher = teacherService.getById(2);
             Optional<Teacher> optionalFullTeacher = teacherService.getById(1);
             Teacher fullTeacher = optionalFullTeacher.get();
 
             Teacher substituteTeacher = optionalSubTeacher.get();
 
-            Optional<Course> courseOpt = courseService.findById(2);
+            Optional<Course> courseOpt = Optional.ofNullable(courseService.findById(2));
             Course course = courseOpt.get();
 
             fullTeacher.setCourse(course);
@@ -60,7 +60,7 @@ public class ConfigTest implements CommandLineRunner {
 
 
             courseService.create(course);
-            teacherService.create(fullTeacher);
+            teacherService.create(fullTeacher);*/
 
 
         }catch (Exception e) {

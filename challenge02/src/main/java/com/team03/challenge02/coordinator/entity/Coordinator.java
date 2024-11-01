@@ -11,6 +11,5 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 
-
 public class Coordinator extends Person implements Serializable {
 }
