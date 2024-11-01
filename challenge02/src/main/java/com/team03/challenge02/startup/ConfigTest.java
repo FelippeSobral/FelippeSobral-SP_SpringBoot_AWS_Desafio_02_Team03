@@ -39,23 +39,28 @@ public class ConfigTest implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
 
-            //Optional<Teacher> optionalSubTeacher = teacherService.getById(2);
-            //Optional<Teacher> optionalFullTeacher = teacherService.getById(1);
-            //var fullTeacher = optionalFullTeacher.get();
-            //var substituteTeacher = optionalSubTeacher.get();
+            Optional<Teacher> optionalSubTeacher = teacherService.getById(2);
+            Optional<Teacher> optionalFullTeacher = teacherService.getById(1);
+            Teacher fullTeacher = optionalFullTeacher.get();
 
-            //Optional<Course> courseOpt = courseService.findById(2);
-            //Course course = courseOpt.get();
+            Teacher substituteTeacher = optionalSubTeacher.get();
+
+            Optional<Course> courseOpt = courseService.findById(2);
+            Course course = courseOpt.get();
+
+            fullTeacher.setCourse(course);
+
+            Optional<Discipline> disciplineOpt = disciplineService.getById(2);
+            Discipline discipline = disciplineOpt.get();
+
+            discipline.setCourse(course);
+            log.info("discipline list: {}", course.getDisciplinesList());
+
+            course.getDisciplinesList().add(discipline);
 
 
-            //Optional<Discipline> disciplineOpt = disciplineService.getById(2);
-            //Discipline discipline = disciplineOpt.get();
-            //log.info("discipline list: {}", course.getDisciplinesList());
-
-            //course.getDisciplinesList().add(discipline);
-
-
-            //courseService.create(course);
+            courseService.create(course);
+            teacherService.create(fullTeacher);
 
 
         }catch (Exception e) {

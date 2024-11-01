@@ -21,7 +21,7 @@ public abstract class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    protected Long id;
     @NotBlank(message = "The field cant be blank")
     @Column(nullable = false)
     private String firstName;

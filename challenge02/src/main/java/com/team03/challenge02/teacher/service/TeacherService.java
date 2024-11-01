@@ -2,6 +2,9 @@ package com.team03.challenge02.teacher.service;
 
 import com.team03.challenge02.discipline.entity.Discipline;
 import com.team03.challenge02.teacher.entity.Teacher;
+import com.team03.challenge02.teacher.exceptions.DuplicatedDisciplinesException;
+import com.team03.challenge02.teacher.exceptions.InvalidCouseSubjectException;
+import com.team03.challenge02.teacher.exceptions.TooManySubjectsException;
 import com.team03.challenge02.teacher.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,11 +45,11 @@ public class TeacherService {
         List<Discipline> substituteSubjects = teacher.getSubstituteSubjects();
 
         if (holdingSubjects.size() > 2) {
-            throw new IllegalArgumentException("Too many holding subjects");
+            throw new TooManySubjectsException("Too many holding subjects");
         }
 
         if(substituteSubjects.size() > 2) {
-            throw new IllegalArgumentException("Too many substitute subjects");
+            throw new TooManySubjectsException("Too many substitute subjects");
         }
 
         Set<Discipline> allDisciplines = new HashSet<>();
@@ -54,18 +57,18 @@ public class TeacherService {
         allDisciplines.addAll(substituteSubjects);
 
         if(allDisciplines.size() < (holdingSubjects.size() + substituteSubjects.size())) {
-            throw new IllegalArgumentException("Duplicate disciplines is not allowed");
+            throw new DuplicatedDisciplinesException("Duplicate disciplines is not allowed");
         }
 
         for(Discipline discipline : holdingSubjects) {
             if(!discipline.getFullTeacher().getCourse().equals(teacher.getCourse())) {
-                throw new IllegalArgumentException("Holding subjects most be from teacher course");
+                throw new InvalidCouseSubjectException("Holding subjects most be from teacher course");
             }
         }
 
         for(Discipline discipline : substituteSubjects) {
             if(substituteSubjects.indexOf(discipline) < 2 && !discipline.getFullTeacher().getCourse().equals(teacher.getCourse())) {
-                throw new IllegalArgumentException("Substitute subjects most be from teacher course");
+                throw new InvalidCouseSubjectException("Substitute subjects most be from teacher course");
             }
         }
     }

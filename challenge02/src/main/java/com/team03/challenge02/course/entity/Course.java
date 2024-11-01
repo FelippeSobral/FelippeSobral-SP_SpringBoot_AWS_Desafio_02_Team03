@@ -24,7 +24,7 @@ public class    Course {
     @Column(name = "coordinator")
     private String coordinator;
     @OneToMany(mappedBy = "course",fetch = FetchType.EAGER)
-    @Column(name = "discipline_id")
+    @Column(name = "disciplines_id")
     private List<Discipline> disciplinesList = new ArrayList<>();
 
 
