@@ -10,7 +10,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter @Setter
+//@Getter @Setter
 public record StudentDto (
 
      Long id,

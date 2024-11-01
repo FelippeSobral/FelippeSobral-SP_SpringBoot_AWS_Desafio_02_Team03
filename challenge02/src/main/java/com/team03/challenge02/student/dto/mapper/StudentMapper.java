@@ -19,7 +19,7 @@ public class StudentMapper {
        PropertyMap<Student,StudentDto> props = new PropertyMap<Student,StudentDto>() {
           @Override
            protected void configure() {
-                map().setRole(role);
+               // map().setRole(role);
 
           }
        };
