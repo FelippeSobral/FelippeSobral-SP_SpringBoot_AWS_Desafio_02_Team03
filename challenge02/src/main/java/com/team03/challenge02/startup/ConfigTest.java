@@ -37,35 +37,35 @@ public class ConfigTest implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        try {
-
-            Optional<Teacher> optionalSubTeacher = teacherService.getById(2);
-            Optional<Teacher> optionalFullTeacher = teacherService.getById(1);
-            Teacher fullTeacher = optionalFullTeacher.get();
-
-            Teacher substituteTeacher = optionalSubTeacher.get();
-
-            Optional<Course> courseOpt = courseService.findById(2);
-            Course course = courseOpt.get();
-
-            fullTeacher.setCourse(course);
-
-            Optional<Discipline> disciplineOpt = disciplineService.getById(2);
-            Discipline discipline = disciplineOpt.get();
-
-            discipline.setCourse(course);
-            log.info("discipline list: {}", course.getDisciplinesList());
-
-            course.getDisciplinesList().add(discipline);
-
-
-            courseService.create(course);
-            teacherService.create(fullTeacher);
-
-
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-
+//        try {
+//
+//            Optional<Teacher> optionalSubTeacher = teacherService.getById(2);
+//            Optional<Teacher> optionalFullTeacher = teacherService.getById(1);
+//            Teacher fullTeacher = optionalFullTeacher.get();
+//
+//            Teacher substituteTeacher = optionalSubTeacher.get();
+//
+//            Optional<Course> courseOpt = Optional.ofNullable(courseService.findById(2));
+//            Course course = courseOpt.get();
+//
+//            fullTeacher.setCourse(course);
+//
+//            Optional<Discipline> disciplineOpt = disciplineService.getById(2);
+//            Discipline discipline = disciplineOpt.get();
+//
+//            discipline.setCourse(course);
+//            log.info("discipline list: {}", course.getDisciplinesList());
+//
+//            course.getDisciplinesList().add(discipline);
+//
+//
+//            courseService.create(course);
+//            teacherService.create(fullTeacher);
+//
+//
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
     }
 }

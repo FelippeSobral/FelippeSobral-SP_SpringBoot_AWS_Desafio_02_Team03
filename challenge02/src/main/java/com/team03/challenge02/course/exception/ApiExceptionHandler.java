@@ -3,6 +3,7 @@ package com.team03.challenge02.course.exception;
 import com.team03.challenge02.student.exception.ErrorMessage;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorMessage> dataIntegrityViolationException(DataIntegrityViolationException ex, HttpServletRequest st, BindingResult rs){
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorMessage> constraintViolationException(DataIntegrityViolationException ex, HttpServletRequest st, BindingResult rs){
         log.error("Api error - ", ex);
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(st, HttpStatus.UNPROCESSABLE_ENTITY,"Campos duplicados!", rs));
+                .body(new ErrorMessage(st, HttpStatus.UNPROCESSABLE_ENTITY,"Campos empity!", rs));
     }
 
     @ExceptionHandler(NameUniqueViolationException.class)
