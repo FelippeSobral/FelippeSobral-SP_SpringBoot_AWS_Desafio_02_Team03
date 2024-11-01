@@ -1,7 +1,6 @@
-package com.team03.challenge02.course.exception;
+package com.team03.challenge02.exception;
 
 import com.team03.challenge02.student.exception.ErrorMessage;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,9 @@
 package com.team03.challenge02.course.service;
 
 import com.team03.challenge02.course.entity.Course;
-import com.team03.challenge02.course.exception.EntityIdNotFoundException;
-import com.team03.challenge02.course.exception.EntityNameNotFoundException;
-import com.team03.challenge02.course.exception.NameUniqueViolationException;
+import com.team03.challenge02.exception.EntityIdNotFoundException;
+import com.team03.challenge02.exception.EntityNameNotFoundException;
+import com.team03.challenge02.exception.NameUniqueViolationException;
 import com.team03.challenge02.course.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
