@@ -1,5 +1,6 @@
 package com.team03.challenge02.discipline.entity;
 
+import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.student.entity.Student;
 import com.team03.challenge02.teacher.entity.Teacher;
 import jakarta.persistence.*;
@@ -35,13 +36,16 @@ public class Discipline implements Serializable {
     private Teacher substituteTeacher;
 
     @JoinTable(
-            name = "discipline_student", // Nome da tabela de junção
+            name = "tb_discipline_student", // Nome da tabela de junção
             joinColumns = @JoinColumn(name = "discipline_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     @ManyToMany
     @Size(max = 10)
     private List<Student> students;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
     @Override
     public boolean equals(Object o) {
