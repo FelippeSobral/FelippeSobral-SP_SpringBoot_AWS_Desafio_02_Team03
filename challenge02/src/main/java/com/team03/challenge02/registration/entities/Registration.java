@@ -2,6 +2,7 @@
 package com.team03.challenge02.registration.entities;
 
 
+import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.student.entity.Student;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,11 @@ public class Registration {
     private Long Id;
 
     @ManyToOne
-    @JoinColumn(name = "id" , nullable = false)
+    @JoinColumn(name = "student_id" , nullable = false)
     private Student studant;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id" , nullable = false)
+    private Course course;
+
 }

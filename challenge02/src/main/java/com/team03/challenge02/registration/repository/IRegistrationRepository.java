@@ -6,10 +6,13 @@ import com.team03.challenge02.student.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
 @Repository
 public interface IRegistrationRepository extends JpaRepository<Registration, Long> {
     Optional<Registration> findByStudentAndCourse(Student student, Course course);
+
+    List<Registration> findAllByStudentId(Long studentId);
 }
