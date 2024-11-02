@@ -11,6 +11,7 @@ public class TeacherMapper {
         teacher.setLastName(teacherDTO.lastName());
         teacher.setEmail(teacherDTO.email());
         teacher.setBirthDate(teacherDTO.birthDate());
+        teacher.setPassword(teacherDTO.password());
         return teacher;
     }
 }

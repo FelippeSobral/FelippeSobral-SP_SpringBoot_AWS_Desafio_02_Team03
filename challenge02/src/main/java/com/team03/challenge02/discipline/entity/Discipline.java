@@ -1,5 +1,9 @@
 package com.team03.challenge02.discipline.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.student.entity.Student;
 import com.team03.challenge02.teacher.entity.Teacher;
@@ -18,6 +22,7 @@ import java.util.Objects;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name ="tb_disciplines")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Discipline implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

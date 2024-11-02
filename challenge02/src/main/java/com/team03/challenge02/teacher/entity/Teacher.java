@@ -1,5 +1,6 @@
 package com.team03.challenge02.teacher.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.discipline.entity.Discipline;
 import com.team03.challenge02.person.Person;
@@ -20,6 +21,7 @@ import static com.team03.challenge02.roles.Role.ROLE_TEACHER;
 @Setter
 @Entity
 @Table(name = "tb_teachers")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Teacher extends Person implements Serializable {
 
     @ManyToOne
@@ -27,13 +29,18 @@ public class Teacher extends Person implements Serializable {
     private Course course;
 
     @OneToMany(mappedBy = "fullTeacher")
+
     private List<Discipline> holdingSubjects = new ArrayList<>();
 
     @OneToMany(mappedBy = "substituteTeacher")
+
     private List<Discipline> substituteSubjects = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role = ROLE_TEACHER;
+
+    @JsonIgnore
+    private String password;
 
     public Teacher() {
     }
@@ -43,6 +50,7 @@ public class Teacher extends Person implements Serializable {
             String lastName,
             String email,
             LocalDate birthDate,
+            String password,
             Course course,
             List<Discipline> holdingSubjects,
             List<Discipline> substituteSubjects) {
@@ -52,6 +60,14 @@ public class Teacher extends Person implements Serializable {
         this.substituteSubjects = substituteSubjects;
     }
 
-
+    public Teacher(
+            String firstName,
+            String lastName,
+            String email,
+            LocalDate birthDate,
+            String password) {
+        super(firstName, lastName, email, birthDate);
+        this.password = password;
+    }
 }
 
