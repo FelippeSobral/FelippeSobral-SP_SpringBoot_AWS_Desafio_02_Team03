@@ -21,8 +21,27 @@ public class CoordinatorService {
         try {
             return repository.save(cr);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw  new NameUniqueViolationException(String.format("Information exists our data base"));
+            throw  new NameUniqueViolationException(String.format("Information exists in our data base"));
         }
+    }
+
+    public Coordinator update(Long id, Coordinator coordinator){
+        Coordinator cr = findById(id);
+        try {
+            cr.setFirstName(coordinator.getFirstName());
+            cr.setLastName(coordinator.getLastName());
+            cr.setCourse(coordinator.getCourse());
+            cr.setEmail(coordinator.getEmail());
+            cr.setDisciplinas(coordinator.getDisciplinas());
+            cr.setBirthDate(coordinator.getBirthDate());
+        } catch (org.springframework.transaction.TransactionSystemException ex) {
+            throw  new NameUniqueViolationException(String.format("Preencha os campos"));
+        }
+        return repository.save(cr);
+    }
+
+    public void deleteById(Long id){
+        repository.deleteById(id);
     }
 
     public Coordinator findById(Long id){

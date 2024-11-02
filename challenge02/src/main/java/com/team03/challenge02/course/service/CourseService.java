@@ -43,4 +43,17 @@ public class CourseService {
             throw new EntityNameNotFoundException(String.format("Name {%s} not found", name));
         }
     }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
+    public Course update(Long id, Course course){
+        Course cr = findById(id);
+        cr.setName(course.getName());
+        cr.setCoordinator(course.getCoordinator());
+        cr.setDescription(course.getDescription());
+        cr.setDisciplinesList(course.getDisciplinesList());
+        return repository.save(cr);
+    }
 }

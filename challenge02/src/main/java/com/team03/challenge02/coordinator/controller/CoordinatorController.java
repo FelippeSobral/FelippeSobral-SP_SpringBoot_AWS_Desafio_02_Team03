@@ -19,6 +19,12 @@ public class CoordinatorController {
         this.service = service;
     }
 
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping
     public ResponseEntity<Coordinator> create(@RequestBody Coordinator coordinator){
         Coordinator cr = service.create(coordinator);
@@ -37,5 +43,11 @@ public class CoordinatorController {
         Coordinator coordinator = service.findById(id);
         CoordinatorDTO dto = CoordinatorMapper.toDto(coordinator);
         return ResponseEntity.ok().body(dto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Coordinator> update(@PathVariable Long id, @RequestBody Coordinator coordinator){
+        Coordinator cr = service.update(id, coordinator);
+        return ResponseEntity.ok().body(cr);
     }
 }

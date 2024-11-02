@@ -18,6 +18,18 @@ public class CourseController {
         this.service = service;
     }
 
+    @PutMapping("/id/{id}")
+    public ResponseEntity<Course> update(@PathVariable Long id, @RequestBody Course course){
+        Course cr = service.update(id, course);
+        return ResponseEntity.ok().body(cr);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping
     public ResponseEntity<Course> create(@RequestBody Course course){
         Course cs = service.create(course);
