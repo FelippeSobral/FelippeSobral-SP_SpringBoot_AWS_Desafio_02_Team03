@@ -1,9 +1,9 @@
 package com.team03.challenge02.course.service;
 
 import com.team03.challenge02.course.entity.Course;
-import com.team03.challenge02.course.exception.EntityIdNotFoundException;
-import com.team03.challenge02.course.exception.EntityNameNotFoundException;
-import com.team03.challenge02.course.exception.NameUniqueViolationException;
+import com.team03.challenge02.exception.EntityIdNotFoundException;
+import com.team03.challenge02.exception.EntityNameNotFoundException;
+import com.team03.challenge02.exception.NameUniqueViolationException;
 import com.team03.challenge02.course.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,5 +42,18 @@ public class CourseService {
         } catch (org.springframework.dao.IncorrectResultSizeDataAccessException ex){
             throw new EntityNameNotFoundException(String.format("Name {%s} not found", name));
         }
+    }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
+
+    public Course update(Long id, Course course){
+        Course cr = findById(id);
+        cr.setName(course.getName());
+        cr.setCoordinator(course.getCoordinator());
+        cr.setDescription(course.getDescription());
+        cr.setDisciplinesList(course.getDisciplinesList());
+        return repository.save(cr);
     }
 }

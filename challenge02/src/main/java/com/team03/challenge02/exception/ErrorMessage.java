@@ -1,4 +1,4 @@
-package com.team03.challenge02.course.exception;
+package com.team03.challenge02.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
