@@ -16,9 +16,9 @@ import static com.team03.challenge02.roles.Role.ROLE_STUDENT;
 @Table(name ="tb_students")
 public class Student extends Person {
 
-    //@OneToOne
-    //@JoinColumn(name ="course_id")
-    private String course;
+    @OneToOne
+    @JoinColumn(name ="course_id")
+    private Course course;
 
     private String adress;
 

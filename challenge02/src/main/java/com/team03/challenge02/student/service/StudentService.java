@@ -1,7 +1,11 @@
 package com.team03.challenge02.student.service;
 
+import com.team03.challenge02.course.entity.Course;
+import com.team03.challenge02.course.repository.CourseRepository;
 import com.team03.challenge02.student.dto.StudentDto;
+import com.team03.challenge02.student.dto.mapper.StudentMapper;
 import com.team03.challenge02.student.entity.Student;
+import com.team03.challenge02.student.exception.AdressInvalidException;
 import com.team03.challenge02.student.repository.StudentRepository;
 import com.team03.challenge02.student.viacep.ViaCepClient;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,31 +14,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+
 public class StudentService {
-    @Autowired
+
     private final StudentRepository studentRepository;
-    @Autowired
+    private final CourseRepository courseRepository;
     private ViaCepClient viaCepClient;
 
+    public StudentService(StudentRepository studentRepository, ViaCepClient viaCepClient, CourseRepository courseRepository) {
+        this.studentRepository = studentRepository;
+        this.viaCepClient = viaCepClient;
+        this.courseRepository = courseRepository;
+    }
+
+
     @Transactional
-    public Student save(Student student) {
-        if(student.getAdress() != null) {
-         var adress = viaCepClient.getAdress(student.getAdress());
-         String completeAdress = adress.street() + "," + adress.neighborhood()
-                                + "," + adress.city() + "," + adress.state();
-         student.setAdress(completeAdress);
-        }
+    public Student save(StudentDto studentDto) {
+        Course course = courseRepository.findById(studentDto.course()).orElseThrow(EntityNotFoundException::new);
+        Student student = StudentMapper.toStudent(studentDto,course);
 
+        try { if (student.getAdress() != null) {
+            var adress = viaCepClient.getAdress(student.getAdress());
+            String completeAdress = adress.street() + ","
+                    + adress.neighborhood() + ","
+                    + adress.city() + "," + adress.state();
+            student.setAdress(completeAdress); } }
+        catch (AdressInvalidException e) {
+            throw new EntityNotFoundException("Invalid address"); }
         if (!isOldEnough(student.getBirthDate())) {
-            throw new IllegalArgumentException("The student must be at least 18 years old.");
-        }
-
+            throw new IllegalArgumentException("The student must be at least 18 years old."); }
         return studentRepository.save(student);
     }
     private boolean isOldEnough(LocalDate birthdate) {

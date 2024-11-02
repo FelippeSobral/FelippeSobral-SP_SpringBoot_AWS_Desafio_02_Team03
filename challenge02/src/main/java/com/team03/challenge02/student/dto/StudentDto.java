@@ -1,6 +1,7 @@
 package com.team03.challenge02.student.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.roles.Role;
 import jakarta.validation.constraints.Email;
@@ -10,7 +11,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-//@Getter @Setter
+
 public record StudentDto (
 
      Long id,
@@ -24,10 +25,11 @@ public record StudentDto (
      @Email(message = "Email should be valid")
      @Pattern(regexp = "^[\\w-\\.]+@[\\w-]+\\.[a-zA-Z]{2,}$")
      String email,
+     @JsonFormat(pattern = "yyyy-MM-dd")
      LocalDate birthDate,
-     String course,
+     Long course,
      String adress,
      String role
-     )
-{
-}
+
+)
+{}
