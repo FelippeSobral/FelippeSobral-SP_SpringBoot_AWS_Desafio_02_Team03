@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(url= "https://viacep.com.br/ws/",name = "viaCepClient")
 public interface ViaCepClient {
     @GetMapping("/{zipCode}/json/")
-    Adress getAdress(@PathVariable String zipCode);
+    Adress getAdress(@PathVariable("zipCode") String zipCode);
 }

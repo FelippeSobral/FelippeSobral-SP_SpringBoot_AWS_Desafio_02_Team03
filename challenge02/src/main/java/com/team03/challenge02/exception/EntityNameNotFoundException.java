@@ -1,4 +1,4 @@
-package com.team03.challenge02.course.exception;
+package com.team03.challenge02.exception;
 
 public class EntityNameNotFoundException extends RuntimeException{
     public EntityNameNotFoundException(String error){
