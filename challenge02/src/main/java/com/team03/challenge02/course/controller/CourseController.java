@@ -24,7 +24,7 @@ public class CourseController {
         return ResponseEntity.ok().body(cr);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public ResponseEntity<Void> delete(Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();

@@ -1,5 +1,6 @@
 package com.team03.challenge02.security;
 
+import com.team03.challenge02.course.repository.CourseRepository;
 import com.team03.challenge02.teacher.entity.Teacher;
 import com.team03.challenge02.teacher.repository.TeacherRepository;
 import jakarta.servlet.FilterChain;
@@ -22,6 +23,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenService jwtTokenService;
     private final TeacherRepository teacherRepository;
+    private final CourseRepository courseRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -58,7 +60,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     // Verifica se o endpoint requer autenticação antes de processar a requisição
     private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        return !Arrays.asList(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
+        return !Arrays.asList(SecurityConfiguration.TEACHER_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
     }
 
 }

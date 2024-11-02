@@ -5,7 +5,7 @@ import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.course.service.CourseService;
 import com.team03.challenge02.discipline.entity.Discipline;
 import com.team03.challenge02.discipline.services.DisciplineServices;
-import com.team03.challenge02.student.service.StudentService;
+//import com.team03.challenge02.student.service.StudentService;
 import com.team03.challenge02.teacher.entity.Teacher;
 import com.team03.challenge02.teacher.service.TeacherService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +26,8 @@ public class ConfigTest implements CommandLineRunner {
     @Autowired
     TeacherService teacherService;
 
-    @Autowired
-    StudentService studentService;
+   // @Autowired
+   //StudentService studentService;
 
     @Autowired
     CourseService courseService;

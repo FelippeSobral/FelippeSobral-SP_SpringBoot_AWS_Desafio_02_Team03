@@ -22,13 +22,24 @@ public class SecurityConfiguration {
 
     private final UserAuthenticationFilter userAuthenticationFilter;
 
-    public static final String[] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
-            "/api/teacher/login",
+    public static final String[] COURSE_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
+            "/api/course",
+            "/api/course/*"
+    };
+
+    public static final String[] ENDPOINTS_COURSE = {
+            "/api/course",
+            "/api/course/*"
+    };
+
+    public static final String[] TEACHER_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
+            "/api/teacher/login"
     };
 
     public static final String[] ENDPOINTS_TEACHER = {
             "/api/teacher"
     };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,7 +47,11 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                        .requestMatchers(HttpMethod.POST, TEACHER_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                        .requestMatchers(HttpMethod.GET, COURSE_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                        .requestMatchers(HttpMethod.POST, ENDPOINTS_COURSE).hasRole("COORDINATOR")
+                        .requestMatchers(HttpMethod.DELETE, ENDPOINTS_COURSE).hasRole("COORDINATOR")
+                        .requestMatchers(HttpMethod.PUT, ENDPOINTS_COURSE).hasRole("COORDINATOR")
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .anyRequest().denyAll())
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
