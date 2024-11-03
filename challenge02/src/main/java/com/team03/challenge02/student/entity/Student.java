@@ -1,5 +1,6 @@
 package com.team03.challenge02.student.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.person.Person;
 import com.team03.challenge02.roles.Role;
@@ -25,6 +26,7 @@ public class Student extends Person implements Serializable, UserEntity {
 
     private String adress;
 
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)

@@ -4,6 +4,15 @@ import com.team03.challenge02.coordinator.entity.Coordinator;
 import com.team03.challenge02.coordinator.repository.CoordinatorRepository;
 import com.team03.challenge02.exception.EntityIdNotFoundException;
 import com.team03.challenge02.exception.NameUniqueViolationException;
+import com.team03.challenge02.security.JwtTokenService;
+import com.team03.challenge02.security.UserDetailsImpl;
+import com.team03.challenge02.teacher.dto.LoginRequest;
+import com.team03.challenge02.teacher.dto.RecoveryJwtTokenDTO;
+import jakarta.validation.Valid;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +21,20 @@ import java.util.List;
 public class CoordinatorService {
 
     private final CoordinatorRepository repository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenService jwtTokenService;
+    private final PasswordEncoder passwordEncoder;
 
-    public CoordinatorService(CoordinatorRepository repository) {
+    public CoordinatorService(CoordinatorRepository repository, AuthenticationManager authenticationManager, JwtTokenService jwtTokenService, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenService = jwtTokenService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Coordinator create(Coordinator cr){
         try {
+            cr.setPassword(passwordEncoder.encode(cr.getPassword()));
             return repository.save(cr);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
             throw  new NameUniqueViolationException(String.format("Information exists in our data base"));
@@ -50,6 +66,17 @@ public class CoordinatorService {
 
     public List<Coordinator> findAll(){
         return repository.findAll();
+    }
+
+    public RecoveryJwtTokenDTO authenticateUser(@Valid LoginRequest loginRequest) {
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());
+
+        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+        return new RecoveryJwtTokenDTO(jwtTokenService.generateToken(userDetails));
     }
 
 

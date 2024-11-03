@@ -4,6 +4,9 @@ import com.team03.challenge02.coordinator.dto.CoordinatorDTO;
 import com.team03.challenge02.coordinator.dto.mapper.CoordinatorMapper;
 import com.team03.challenge02.coordinator.entity.Coordinator;
 import com.team03.challenge02.coordinator.service.CoordinatorService;
+import com.team03.challenge02.teacher.dto.LoginRequest;
+import com.team03.challenge02.teacher.dto.RecoveryJwtTokenDTO;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +52,11 @@ public class CoordinatorController {
     public ResponseEntity<Coordinator> update(@PathVariable Long id, @RequestBody Coordinator coordinator){
         Coordinator cr = service.update(id, coordinator);
         return ResponseEntity.ok().body(cr);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<RecoveryJwtTokenDTO> login(@RequestBody @Valid LoginRequest loginRequest) {
+        RecoveryJwtTokenDTO token = service.authenticateUser(loginRequest);
+        return ResponseEntity.ok(token);
     }
 }

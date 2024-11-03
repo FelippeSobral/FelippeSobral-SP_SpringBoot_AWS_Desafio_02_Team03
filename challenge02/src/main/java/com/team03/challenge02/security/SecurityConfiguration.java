@@ -25,7 +25,8 @@ public class SecurityConfiguration {
     public static final String[] POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/api/teacher/login",
             "/api/student/login",
-            "/api/student/two"
+            "/api/student/two",
+            "/api/coordinator/login"
     };
 
     public static final String[] GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
@@ -44,6 +45,10 @@ public class SecurityConfiguration {
             "api/student"
     };
 
+    public static final String[] ENDPOINTS_COORDINATOR = {
+            "api/coordinator"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -54,6 +59,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_STUDENTS).hasRole("STUDENT")
+                        .requestMatchers(HttpMethod.GET, ENDPOINTS_COORDINATOR).hasRole("COORDINATOR")
                         .anyRequest().denyAll())
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
