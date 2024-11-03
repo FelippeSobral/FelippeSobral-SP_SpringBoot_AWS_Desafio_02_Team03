@@ -34,11 +34,18 @@ public class SecurityConfiguration {
             "/api/course/*"
     };
 
-    public static final String[] ENDPOINTS_TEACHER = {
+    public static final String[] GET_ENDPOINTS_TEACHER = {
             "api/teacher",
             "api/teacher/*",
-            "api/teacher/create",
+            "api/teacher",
             "api/teacher/delete",
+            "api/student",
+            "api/student/*"
+
+    };
+
+    public static final String[] POST_ENDPOINTS_TEACHER = {
+            "api/teacher",
     };
 
     public static final String[] ENDPOINTS_STUDENTS = {
@@ -57,7 +64,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
                         .requestMatchers(HttpMethod.GET, GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
-                        .requestMatchers(HttpMethod.GET, ENDPOINTS_TEACHER).hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.GET, GET_ENDPOINTS_TEACHER).hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.POST, POST_ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_STUDENTS).hasRole("STUDENT")
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_COORDINATOR).hasRole("COORDINATOR")
                         .anyRequest().denyAll())
