@@ -33,7 +33,7 @@ public class RegistrationServices {
 
         Registration registration = new Registration();
 
-        registration.setStudant(student);
+        registration.setStudent(student);
 
         registration.setCourse(course);
 

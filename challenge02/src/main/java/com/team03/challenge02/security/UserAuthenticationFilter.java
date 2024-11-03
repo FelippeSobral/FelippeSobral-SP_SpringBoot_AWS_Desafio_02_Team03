@@ -77,8 +77,24 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
+    /*private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         return !Arrays.asList(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
+    }*/
+
+    private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        String method = request.getMethod(); // Captura o método HTTP da requisição
+
+        if ("GET".equalsIgnoreCase(method)) {
+            // Verifica se o endpoint GET não requer autenticação
+            return !Arrays.asList(SecurityConfiguration.GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
+        } else if ("POST".equalsIgnoreCase(method)) {
+            // Verifica se o endpoint POST não requer autenticação
+            return !Arrays.asList(SecurityConfiguration.POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
+        }
+
+        // Por padrão, assume que endpoints de outros métodos requerem autenticação
+        return true;
     }
 }

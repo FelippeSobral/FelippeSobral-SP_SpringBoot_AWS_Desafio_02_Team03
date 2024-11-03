@@ -22,7 +22,7 @@ public class Registration {
 
     @ManyToOne
     @JoinColumn(name = "student_id" , nullable = false)
-    private Student studant;
+    private Student student;
 
     @ManyToOne
     @JoinColumn(name = "course_id" , nullable = false)
