@@ -22,11 +22,16 @@ public class SecurityConfiguration {
 
     private final UserAuthenticationFilter userAuthenticationFilter;
 
-    public static final String[] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
+    public static final String[] POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/api/teacher/login",
             "/api/student/login",
             "/api/student/two"
     };
+
+    public static final String[] GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
+            "/api/course",
+            "/api/course/*"
+    }
 
     public static final String[] ENDPOINTS_TEACHER = {
             "api/teacher",
@@ -45,7 +50,8 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                        .requestMatchers(HttpMethod.POST, POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                        .requestMatchers(HttpMethod.GET, GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_STUDENTS).hasRole("STUDENT")
                         .anyRequest().denyAll())
