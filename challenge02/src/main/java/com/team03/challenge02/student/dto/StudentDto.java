@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.roles.Role;
 import jakarta.validation.constraints.*;
-import lombok.*;
 
 import java.time.LocalDate;
 
-//@Getter @Setter
 public record StudentDto (
 
      Long id,
@@ -27,7 +25,7 @@ public record StudentDto (
      @Past(message = "Birth date must be in the past")
      @JsonFormat(pattern = "yyyy-MM-dd")
      LocalDate birthDate,
-     String course,
+     Course course,
      String adress,
      String role
      )

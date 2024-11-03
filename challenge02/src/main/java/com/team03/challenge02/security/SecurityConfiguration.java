@@ -24,10 +24,19 @@ public class SecurityConfiguration {
 
     public static final String[] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/api/teacher/login",
+            "/api/student/login",
+            "/api/student/two"
     };
 
     public static final String[] ENDPOINTS_TEACHER = {
-            "/api/teacher"
+            "api/teacher",
+            "api/teacher/*",
+            "api/teacher/create",
+            "api/teacher/delete",
+    };
+
+    public static final String[] ENDPOINTS_STUDENTS = {
+            "api/student"
     };
 
     @Bean
@@ -38,6 +47,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_TEACHER).hasRole("TEACHER")
+                        .requestMatchers(HttpMethod.GET, ENDPOINTS_STUDENTS).hasRole("STUDENT")
                         .anyRequest().denyAll())
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -7,9 +7,6 @@ import com.team03.challenge02.security.UserDetailsImpl;
 import com.team03.challenge02.teacher.dto.LoginRequest;
 import com.team03.challenge02.teacher.dto.RecoveryJwtTokenDTO;
 import com.team03.challenge02.teacher.entity.Teacher;
-import com.team03.challenge02.teacher.exceptions.DuplicatedDisciplinesException;
-import com.team03.challenge02.teacher.exceptions.InvalidCouseSubjectException;
-import com.team03.challenge02.teacher.exceptions.TooManySubjectsException;
 import com.team03.challenge02.teacher.repository.TeacherRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -70,7 +67,7 @@ public class TeacherService {
         }
     }
 
-    private void validateDiscipline(Teacher teacher) {
+    /*private void validateDiscipline(Teacher teacher) {
         List<Discipline> holdingSubjects = teacher.getHoldingSubjects();
         List<Discipline> substituteSubjects = teacher.getSubstituteSubjects();
 
@@ -100,6 +97,47 @@ public class TeacherService {
                 throw new InvalidCouseSubjectException("Substitute subjects must be from teacher's course");
             }
         }
+    }*/
+
+    private boolean validateDiscipline(Teacher teacher, Discipline newDiscipline, List<Discipline> allDisciplinesInSystem) {
+        if (!allDisciplinesInSystem.contains(newDiscipline)) {
+            return false; // Disciplina não existe no sistema
+        }
+
+        List<Discipline> holdingSubjects = teacher.getHoldingSubjects();
+        List<Discipline> substituteSubjects = teacher.getSubstituteSubjects();
+
+        int totalSubjects = holdingSubjects.size() + substituteSubjects.size();
+
+        // Verificação do limite total de disciplinas
+        if (totalSubjects >= 3) {
+            return false;
+        }
+
+        // Verificação se a disciplina já está atribuída
+        if (holdingSubjects.contains(newDiscipline) || substituteSubjects.contains(newDiscipline)) {
+            return false;
+        }
+
+        // Verificação para adicionar como titular
+        if (!holdingSubjects.isEmpty() && !newDiscipline.getCourse().equals(teacher.getCourse())) {
+            return false; // Válido para adicionar como titular
+        }
+
+        // Verificação de disciplinas substitutas para curso correspondente
+        int courseMatchCount = 0;
+        for (Discipline discipline : substituteSubjects) {
+            if (discipline.getCourse().equals(teacher.getCourse())) {
+                courseMatchCount++;
+            }
+        }
+
+        if ((!(courseMatchCount < 1) && !newDiscipline.getCourse().equals(teacher.getCourse()))
+                || (substituteSubjects.size() < 2)) {
+            return false; // Válido para adicionar como substituto
+        }
+
+        return true; // Caso nenhuma condição permita a adição da disciplina
     }
 
     public RecoveryJwtTokenDTO authenticateUser(@Valid LoginRequest loginRequest) {

@@ -1,5 +1,6 @@
 package com.team03.challenge02.teacher.controller;
 
+import com.team03.challenge02.discipline.entity.Discipline;
 import com.team03.challenge02.teacher.dto.LoginRequest;
 import com.team03.challenge02.teacher.dto.RecoveryJwtTokenDTO;
 import com.team03.challenge02.teacher.dto.TeacherDTO;
@@ -36,7 +37,6 @@ public class TeacherController {
 
     @PostMapping
     public ResponseEntity<Teacher> create(@RequestBody @Valid TeacherDTO teacherDTO) {
-        System.out.println("JSON Body: " + teacherDTO);
         Teacher teacher = new Teacher(
                 teacherDTO.firstName(),
                 teacherDTO.lastName(),
@@ -53,24 +53,10 @@ public class TeacherController {
         return ResponseEntity.noContent().build();
     }
 
-    /*@PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody @Valid LoginRequest loginRequest) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginRequest.email(),
-                            loginRequest.password()
-                    )
-            );
-
-            Set<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
-
-            String token = JwtUtil.generateToken(authentication.getName(), roles);
-            return ResponseEntity.ok(Map.of("token", token));
-
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid credentials"));
-        }
+    /*@PostMapping("/{id}/disciplines")
+    public ResponseEntity<Teacher> addDiscipline(@PathVariable long id, @RequestBody Discipline discipline) {
+        var teacher = teacherService.getById(id);
+        *//*teacherService.*//*
     }*/
 
     @PostMapping("/login")

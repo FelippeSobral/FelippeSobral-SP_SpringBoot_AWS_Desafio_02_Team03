@@ -13,21 +13,21 @@ import java.util.Collections;
 @Getter
 public class UserDetailsImpl implements UserDetails {
 
-    private final Teacher teacher;
+    private final UserEntity userEntity;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(teacher.getRole());
+        return Collections.singleton(userEntity.getRole());
     }
 
     @Override
     public String getPassword() {
-        return teacher.getPassword();
+        return userEntity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return teacher.getEmail();
+        return userEntity.getEmail();
     }
 
     @Override

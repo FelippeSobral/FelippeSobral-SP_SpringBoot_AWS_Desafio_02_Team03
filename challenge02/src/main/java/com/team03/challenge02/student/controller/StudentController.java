@@ -4,6 +4,8 @@ import com.team03.challenge02.student.dto.StudentDto;
 import com.team03.challenge02.student.dto.mapper.StudentMapper;
 import com.team03.challenge02.student.entity.Student;
 import com.team03.challenge02.student.service.StudentService;
+import com.team03.challenge02.teacher.dto.LoginRequest;
+import com.team03.challenge02.teacher.dto.RecoveryJwtTokenDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +19,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/student")
+@RequestMapping("/api/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -25,6 +27,12 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<StudentDto> save(@Valid @RequestBody StudentDto studentDto) {
         Student newStudent = studentService.save(studentDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(StudentMapper.toStudentDto(newStudent));
+    }
+
+    @PostMapping("/two")
+    public ResponseEntity<StudentDto> save2(@Valid @RequestBody Student student) {
+        Student newStudent = studentService.save2(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(StudentMapper.toStudentDto(newStudent));
     }
 
@@ -39,5 +47,11 @@ public class StudentController {
         List<Student> students = studentService.getAll();
         List<StudentDto> studentDtos = StudentMapper.toListDTO(students);
         return ResponseEntity.ok(studentDtos);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<RecoveryJwtTokenDTO> login(@RequestBody @Valid LoginRequest loginRequest) {
+        RecoveryJwtTokenDTO token = studentService.authenticateUser(loginRequest);
+        return ResponseEntity.ok(token);
     }
 }

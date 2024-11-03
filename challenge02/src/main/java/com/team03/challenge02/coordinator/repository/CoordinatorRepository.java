@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CoordinatorRepository extends JpaRepository<Coordinator, Long> {
+    Coordinator findByEmail(String subject);
 }

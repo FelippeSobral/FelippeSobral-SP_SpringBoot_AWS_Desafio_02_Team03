@@ -38,7 +38,7 @@ public class StudentMapper {
                 student.getLastName(),
                 student.getEmail(),
                 student.getBirthDate(),
-                student.getCourse() != null ? student.getCourse().getId() : null,
+                student.getCourse() ,
                 student.getAdress(),
                 student.getRole().name().substring("ROLE_".length()).toUpperCase()
         );

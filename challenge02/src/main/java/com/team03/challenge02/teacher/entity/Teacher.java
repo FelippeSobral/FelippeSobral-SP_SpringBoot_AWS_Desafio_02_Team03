@@ -5,6 +5,7 @@ import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.discipline.entity.Discipline;
 import com.team03.challenge02.person.Person;
 import com.team03.challenge02.roles.Role;
+import com.team03.challenge02.security.UserEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -22,7 +23,7 @@ import static com.team03.challenge02.roles.Role.ROLE_TEACHER;
 @Entity
 @Table(name = "tb_teachers")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Teacher extends Person implements Serializable {
+public class Teacher extends Person implements Serializable, UserEntity {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
