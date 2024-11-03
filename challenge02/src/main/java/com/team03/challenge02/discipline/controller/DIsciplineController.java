@@ -1,6 +1,6 @@
 package com.team03.challenge02.discipline.controller;
 
-import com.team03.challenge02.course.entity.Course;
+import com.team03.challenge02.discipline.dto.DisciplineDto;
 import com.team03.challenge02.discipline.entity.Discipline;
 import com.team03.challenge02.discipline.services.DisciplineServices;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/disciplines")
-public class DIsciplineController {
+public class DisciplineController {
 
     public final DisciplineServices disciplineServices;
 
-    public DIsciplineController(DisciplineServices disciplineServices) {
+    public DisciplineController(DisciplineServices disciplineServices) {
         this.disciplineServices = disciplineServices;
     }
 
