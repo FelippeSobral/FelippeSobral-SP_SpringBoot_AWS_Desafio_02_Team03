@@ -31,17 +31,6 @@ public ResponseEntity<List<RegistrationDTO>> listRegistrations(@PathVariable Lon
     return ResponseEntity.ok(registrations);
 }
 
-@DeleteMapping("/{id}")
-@PreAuthorize("hasRole('ROLE_COORDINATOR')")
-public ResponseEntity<Void> deleteRegistration(@PathVariable Long id) {
-    registrationServices.deleteRegistration(id);
-    return ResponseEntity.noContent().build();
-}
-
-
-
-
-
 
 
 

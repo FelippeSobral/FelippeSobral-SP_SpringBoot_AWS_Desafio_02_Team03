@@ -49,10 +49,4 @@ public class RegistrationServices {
                 .collect(Collectors.toList());
     }
 
-    public void deleteRegistration(Long registrationId) {
-        if (!registrationRepository.existsById(registrationId)) {
-            throw new EntityNotFoundException("Registration not found");
-        }
-        registrationRepository.deleteById(registrationId);
-    }
 }
