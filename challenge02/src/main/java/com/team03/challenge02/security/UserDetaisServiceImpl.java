@@ -22,25 +22,21 @@ public class UserDetaisServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Tenta encontrar um Professor
         Teacher teacher = teacherRepository.findByEmail(username);
         if (teacher != null) {
             return new UserDetailsImpl(teacher);
         }
 
-        // Tenta encontrar um Estudante
         Student student = studentRepository.findByEmail(username);
         if (student != null) {
             return new UserDetailsImpl(student);
         }
 
-        // Tenta encontrar um Coordenador
         Coordinator coordinator = coordinatorRepository.findByEmail(username);
         if (coordinator != null) {
             return new UserDetailsImpl(coordinator);
         }
 
-        // Se nenhum usuário for encontrado, lança exceção
         throw new UsernameNotFoundException("Usuário não encontrado com e-mail: " + username);
     }
 }

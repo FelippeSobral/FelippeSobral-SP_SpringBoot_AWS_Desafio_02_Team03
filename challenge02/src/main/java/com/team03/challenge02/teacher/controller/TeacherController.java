@@ -53,12 +53,6 @@ public class TeacherController {
         return ResponseEntity.noContent().build();
     }
 
-    /*@PostMapping("/{id}/disciplines")
-    public ResponseEntity<Teacher> addDiscipline(@PathVariable long id, @RequestBody Discipline discipline) {
-        var teacher = teacherService.getById(id);
-        *//*teacherService.*//*
-    }*/
-
     @PostMapping("/login")
     public ResponseEntity<RecoveryJwtTokenDTO> login(@RequestBody @Valid LoginRequest loginRequest) {
         RecoveryJwtTokenDTO token = teacherService.authenticateUser(loginRequest);
