@@ -25,7 +25,7 @@ public class Coordinator extends Person implements Serializable, UserEntity {
     private String disciplinas;
     @Column(name = "course")
     private String course;
-    @Column(name = "course", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role = Role.ROLE_COORDINATOR;

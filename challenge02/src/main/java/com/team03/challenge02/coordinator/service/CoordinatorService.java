@@ -52,7 +52,7 @@ public class CoordinatorService {
             cr.setDisciplinas(coordinator.getDisciplinas());
             cr.setBirthDate(coordinator.getBirthDate());
         } catch (org.springframework.transaction.TransactionSystemException ex) {
-            throw  new NameUniqueViolationException(String.format("Preencha os campos"));
+            throw  new NameUniqueViolationException(String.format("Fill in the fields"));
         }
         return repository.save(cr);
     }
@@ -64,10 +64,10 @@ public class CoordinatorService {
     public Coordinator updatePassword(String email, PassworDTO passworDTO){
         Coordinator cr = findByEmail(email);
         if (!cr.getPassword().equals(passworDTO.getCurrentPassword())){
-            throw new RuntimeException("Senha incorreta");
+            throw new RuntimeException("Incorrect password");
         }
         if (!passworDTO.getNewPassword().equals(passworDTO.getRepetePassword())){
-            throw new RuntimeException("Senha diferentes");
+            throw new RuntimeException("Different password");
         }
         cr.setPassword(passworDTO.getNewPassword());
         return repository.save(cr);
