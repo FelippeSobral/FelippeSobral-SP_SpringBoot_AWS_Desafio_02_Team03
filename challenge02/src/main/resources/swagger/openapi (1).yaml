@@ -12,24 +12,24 @@ info:
   version: 1.0.11
 
 tags:
-  - name: aluno
-    description: Tudo sobre o Aluno
-  - name: professor
-    description: Tudo sobre o professor
-  - name: coordenador
-    description: Tudo sobre o coordenador
-  - name: curso
-    description: Tudo sobre o curso
-  - name: disciplina
-    description: Tudo sobre Disciplina
-  - name: matricula
-    description: Tudo sobre matricula
+  - name: student
+    description: Everything about the student
+  - name: teacher
+    description: Everything about the teacher
+  - name: coordinator
+    description: Everything about the coordinator
+  - name: course
+    description: Everything about the course
+  - name: discipline
+    description: Everything about the discipline
+  - name: registration
+    description: Everything about the enrollment
 
 paths:
-  /alunos:
+  /student:
     get:
       tags:
-        - aluno
+        - student
       summary: Listar todos os alunos
       responses:
         '200':
@@ -56,7 +56,7 @@ paths:
     
     post:
       tags:
-        - aluno
+        - student
       summary: Criar um novo aluno
       requestBody:
         required: true
@@ -100,10 +100,10 @@ paths:
         '400':
           description: Dados inválidos.
 
-  /alunos/{id}:
+  /student/{id}:
     get:
       tags:
-        - aluno
+        - student
       summary: Obter detalhes de um aluno
       parameters:
         - in: path
@@ -138,7 +138,7 @@ paths:
 
     put:
       tags:
-        - aluno
+        - student
       summary: Atualizar informações de um aluno
       parameters:
         - in: path
@@ -174,7 +174,7 @@ paths:
 
     delete:
       tags:
-        - aluno
+        - student
       summary: Remover um aluno
       parameters:
         - in: path
@@ -188,10 +188,10 @@ paths:
         '404':
           description: Aluno não encontrado.
 
-  /professores:
+  /teacher:
     get:
       tags:
-        - professor
+        - teacher
       summary: Listar todos os professores
       responses:
         '200':
@@ -201,7 +201,7 @@ paths:
     
     post:
       tags:
-        - professor
+        - teacher
       summary: Criar um novo professor
       requestBody:
         required: true
@@ -229,10 +229,10 @@ paths:
         '400':
           description: Dados inválidos.
 
-  /professores/{id}:
+  /teacher/{id}:
     get:
       tags:
-        - professor
+        - teacher
       summary: Obter detalhes de um professor
       parameters:
         - in: path
@@ -248,7 +248,7 @@ paths:
 
     put:
       tags:
-        - professor
+        - teacher
       summary: Atualizar informações de um professor
       parameters:
         - in: path
@@ -281,7 +281,7 @@ paths:
 
     delete:
       tags:
-        - professor
+        - teacher
       summary: Remover um professor
       parameters:
         - in: path
@@ -295,10 +295,10 @@ paths:
         '404':
           description: Professor não encontrado.
 
-  /coordenador:  # Corrigido para que fique no nível correto
+  /coordinator:  # Corrigido para que fique no nível correto
     get:
       tags:
-        - coordenador
+        - coordinator
       summary: Listar todos os coordenadores
       responses:
         '200':
@@ -343,7 +343,7 @@ paths:
   
     post:
       tags:
-        - coordenador
+        - coordinator
       summary: Criar um novo coordenador
       requestBody:
         description: Dados para criar um novo coordenador
@@ -395,10 +395,10 @@ paths:
                     type: string
                     example: "Dados de entrada inválidos"
 
-  /coordenador/{id}:  
+  /coordinator/{id}:
     get:
       tags:
-        - coordenador
+        - coordinator
       summary: Obter detalhes de um coordenador
       description: Coordenadores têm acesso total a informações de professores e alunos dos cursos que coordenam.
       parameters:
@@ -439,7 +439,7 @@ paths:
     
     put:
       tags:
-        - coordenador
+        - coordinator
       summary: Atualizar informações de um coordenador
       parameters:
         - in: path
@@ -505,7 +505,7 @@ paths:
     
     delete:
       tags:
-        - coordenador
+        - coordinator
       summary: Excluir um coordenador
       description: Apenas administradores podem remover um coordenador.
       parameters:
@@ -528,10 +528,10 @@ paths:
                   error:
                     type: string
                     example: "Coordenador com o ID especificado não foi encontrado"
-  /cursos:
+  /course:
     post:
       tags:
-        - curso
+        - course
       summary: Cadastrar um novo curso
       operationId: criarCurso
       requestBody:
@@ -577,7 +577,7 @@ paths:
 
     get:
       tags:
-        - curso
+        - course
       summary: Listar todos os cursos
       operationId: listarCursos
       responses:
@@ -590,10 +590,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/Curso'
 
-  /cursos/{id}:
+  /course/{id}:
     get:
       tags:
-        - curso
+        - course
       summary: Obter curso por ID
       operationId: obterCursoPorId
       parameters:
@@ -623,7 +623,7 @@ paths:
 
     put:
       tags:
-        - curso
+        - course
       summary: Atualizar um curso existente
       operationId: atualizarCurso
       parameters:
@@ -676,7 +676,7 @@ paths:
 
     delete:
       tags:
-        - curso
+        - course
       summary: Deletar um curso
       operationId: deletarCurso
       parameters:
@@ -698,10 +698,10 @@ paths:
                 properties:
                   message:
                     type: string
-  /disciplinas:
+  /disciplines:
     get:
       tags:
-        - disciplina
+        - discipline
       summary: Listar todas as disciplinas
       responses:
         '200':
@@ -715,7 +715,7 @@ paths:
 
     post:
       tags:
-        - disciplina
+        - discipline
       summary: Cadastrar uma nova disciplina
       requestBody:
         required: true
@@ -756,7 +756,7 @@ paths:
   /disciplinas/{id}:
     put:
       tags:
-        - disciplina
+        - discipline
       summary: Atualizar uma disciplina existente
       parameters:
         - name: id
@@ -803,7 +803,7 @@ paths:
 
     delete:
       tags:
-        - disciplina
+        - discipline
       summary: Deletar uma disciplina
       parameters:
         - name: id
@@ -825,10 +825,10 @@ paths:
                   message:
                     type: string
                     example: "Disciplina não encontrada"
-  /matriculas:
+  /enrollment:
     get:
       tags:
-        - matricula
+        - enrollment
       summary: Listar todas as matrículas
       responses:
         '200':
@@ -842,7 +842,7 @@ paths:
 
     post:
       tags:
-        - matricula
+        - enrollment
       summary: Criar uma nova matrícula
       requestBody:
         required: true
@@ -880,31 +880,6 @@ paths:
                     type: string
                     example: "Aluno ou curso inválido"
 
-  /matriculas/{id}:
-    delete:
-      tags:
-        - matricula
-      summary: Deletar uma matrícula
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID da matrícula a ser deletada.
-          schema:
-            type: integer
-      responses:
-        '204':
-          description: Matrícula deletada com sucesso
-        '404':
-          description: Matrícula não encontrada
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Matrícula não encontrada"
 
 components:
   schemas:
