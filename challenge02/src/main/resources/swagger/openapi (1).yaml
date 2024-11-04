@@ -1,0 +1,947 @@
+openapi: 3.0.0
+info:
+  title: College Manager API
+  description: |
+    API para gerenciamento de informações sobre alunos, professores e coordenadores, incluindo cursos e disciplinas na faculdade. A API permite operações CRUD para cada entidade e implementa níveis de acesso diferentes no sistema.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: teste@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+
+tags:
+  - name: student
+    description: Everything about the student
+  - name: teacher
+    description: Everything about the teacher
+  - name: coordinator
+    description: Everything about the coordinator
+  - name: course
+    description: Everything about the course
+  - name: discipline
+    description: Everything about the discipline
+  - name: registration
+    description: Everything about the enrollment
+
+paths:
+  /student:
+    get:
+      tags:
+        - student
+      summary: Listar todos os alunos
+      responses:
+        '200':
+          description: Lista de alunos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    sobrenome:
+                      type: string
+                    email:
+                      type: string
+        '400':
+          description: Requisição inválida.
+        '500':
+          description: Erro interno do servidor.
+    
+    post:
+      tags:
+        - student
+      summary: Criar um novo aluno
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                sobrenome:
+                  type: string
+                email:
+                  type: string
+                dataNascimento:
+                  type: string
+                  format: date
+                curso:
+                  type: string
+              required:
+                - nome
+                - sobrenome
+                - email
+                - dataNascimento
+      responses:
+        '201':
+          description: Aluno criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  sobrenome:
+                    type: string
+                  email:
+                    type: string
+        '400':
+          description: Dados inválidos.
+
+  /student/{id}:
+    get:
+      tags:
+        - student
+      summary: Obter detalhes de um aluno
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID do aluno
+      responses:
+        '200':
+          description: Detalhes do aluno
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  sobrenome:
+                    type: string
+                  email:
+                    type: string
+                  dataNascimento:
+                    type: string
+                    format: date
+                  curso:
+                    type: string
+        '404':
+          description: Aluno não encontrado.
+
+    put:
+      tags:
+        - student
+      summary: Atualizar informações de um aluno
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                sobrenome:
+                  type: string
+                email:
+                  type: string
+                dataNascimento:
+                  type: string
+                  format: date
+                curso:
+                  type: string
+      responses:
+        '200':
+          description: Aluno atualizado com sucesso.
+        '400':
+          description: Requisição inválida.
+        '404':
+          description: Aluno não encontrado.
+
+    delete:
+      tags:
+        - student
+      summary: Remover um aluno
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Aluno removido com sucesso.
+        '404':
+          description: Aluno não encontrado.
+
+  /teacher:
+    get:
+      tags:
+        - teacher
+      summary: Listar todos os professores
+      responses:
+        '200':
+          description: Lista de professores retornada com sucesso
+        '500':
+          description: Erro interno do servidor.
+    
+    post:
+      tags:
+        - teacher
+      summary: Criar um novo professor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                sobrenome:
+                  type: string
+                email:
+                  type: string
+                especialidade:
+                  type: string
+              required:
+                - nome
+                - sobrenome
+                - email
+                - especialidade
+      responses:
+        '201':
+          description: Professor criado com sucesso
+        '400':
+          description: Dados inválidos.
+
+  /teacher/{id}:
+    get:
+      tags:
+        - teacher
+      summary: Obter detalhes de um professor
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do professor
+        '404':
+          description: Professor não encontrado.
+
+    put:
+      tags:
+        - teacher
+      summary: Atualizar informações de um professor
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                sobrenome:
+                  type: string
+                email:
+                  type: string
+                especialidade:
+                  type: string
+      responses:
+        '200':
+          description: Professor atualizado com sucesso.
+        '400':
+          description: Dados inválidos.
+        '404':
+          description: Professor não encontrado.
+
+    delete:
+      tags:
+        - teacher
+      summary: Remover um professor
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Professor removido com sucesso.
+        '404':
+          description: Professor não encontrado.
+
+  /coordinator:  # Corrigido para que fique no nível correto
+    get:
+      tags:
+        - coordinator
+      summary: Listar todos os coordenadores
+      responses:
+        '200':
+          description: Lista de coordenadores retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    sobrenome:
+                      type: string
+                    email:
+                      type: string
+                    curso:
+                      type: string
+        '400':
+          description: Requisição inválida. Verifique os parâmetros da solicitação.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Requisição inválida - parâmetros incorretos."
+        '500':
+          description: Erro interno do servidor. Tente novamente mais tarde.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Erro interno do servidor - tente novamente mais tarde."
+  
+    post:
+      tags:
+        - coordinator
+      summary: Criar um novo coordenador
+      requestBody:
+        description: Dados para criar um novo coordenador
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                sobrenome:
+                  type: string
+                email:
+                  type: string
+                curso:
+                  type: string
+              required:
+                - nome
+                - sobrenome
+                - email
+                - curso
+      responses:
+        '201':
+          description: Coordenador criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  sobrenome:
+                    type: string
+                  email:
+                    type: string
+                  curso:
+                    type: string
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Dados de entrada inválidos"
+
+  /coordinator/{id}:
+    get:
+      tags:
+        - coordinator
+      summary: Obter detalhes de um coordenador
+      description: Coordenadores têm acesso total a informações de professores e alunos dos cursos que coordenam.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID do coordenador a ser consultado
+      responses:
+        '200':
+          description: Detalhes do coordenador
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  sobrenome:
+                    type: string
+                  email:
+                    type: string
+                  curso:
+                    type: string
+        '404':
+          description: Coordenador não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Coordenador com o ID especificado não foi encontrado"
+    
+    put:
+      tags:
+        - coordinator
+      summary: Atualizar informações de um coordenador
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID do coordenador a ser atualizado
+      requestBody:
+        description: Dados para atualizar o coordenador
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                sobrenome:
+                  type: string
+                email:
+                  type: string
+                curso:
+                  type: string
+      responses:
+        '200':
+          description: Coordenador atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  sobrenome:
+                    type: string
+                  email:
+                    type: string
+                  curso:
+                    type: string
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Dados de entrada inválidos"
+        '404':
+          description: Coordenador não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Coordenador com o ID especificado não foi encontrado"
+    
+    delete:
+      tags:
+        - coordinator
+      summary: Excluir um coordenador
+      description: Apenas administradores podem remover um coordenador.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID do coordenador a ser removido
+      responses:
+        '204':
+          description: Coordenador removido com sucesso (sem conteúdo de retorno)
+        '404':
+          description: Coordenador não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Coordenador com o ID especificado não foi encontrado"
+  /course:
+    post:
+      tags:
+        - course
+      summary: Cadastrar um novo curso
+      operationId: criarCurso
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: Nome do curso. Deve ser único.
+                  example: Engenharia da Computação
+                descricao:
+                  type: string
+                  description: Descrição do curso. É um campo obrigatório.
+                  example: Curso de Engenharia com foco em desenvolvimento de software.
+                disciplinas:
+                  type: array
+                  items:
+                    type: string
+                  description: Lista de disciplinas associadas ao curso. Não deve haver mais de 5 disciplinas.
+              required:
+                - nome
+                - descricao
+      responses:
+        '201':
+          description: Curso criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curso'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Nome é obrigatório ou já existe"
+
+    get:
+      tags:
+        - course
+      summary: Listar todos os cursos
+      operationId: listarCursos
+      responses:
+        '200':
+          description: Lista de cursos retornada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Curso'
+
+  /course/{id}:
+    get:
+      tags:
+        - course
+      summary: Obter curso por ID
+      operationId: obterCursoPorId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do curso a ser obtido.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Curso encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curso'
+        '404':
+          description: Curso não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Curso não encontrado"
+
+    put:
+      tags:
+        - course
+      summary: Atualizar um curso existente
+      operationId: atualizarCurso
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do curso a ser atualizado.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: Nome do curso. Deve ser único.
+                  example: Engenharia de Software
+                descricao:
+                  type: string
+                  description: Descrição do curso. É um campo obrigatório.
+                  example: Curso de Engenharia com foco em desenvolvimento ágil.
+                disciplinas:
+                  type: array
+                  items:
+                    type: string
+                  description: Lista de disciplinas associadas ao curso. Não deve haver mais de 5 disciplinas.
+              required:
+                - nome
+                - descricao
+      responses:
+        '200':
+          description: Curso atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curso'
+        '404':
+          description: Curso não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Curso não encontrado"
+
+    delete:
+      tags:
+        - course
+      summary: Deletar um curso
+      operationId: deletarCurso
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do curso a ser deletado.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Curso deletado com sucesso
+        '404':
+          description: Curso não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /disciplines:
+    get:
+      tags:
+        - discipline
+      summary: Listar todas as disciplinas
+      responses:
+        '200':
+          description: Lista de disciplinas retornada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Disciplina'
+
+    post:
+      tags:
+        - discipline
+      summary: Cadastrar uma nova disciplina
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: Nome da disciplina. Deve ser único.
+                  example: Algoritmos e Estruturas de Dados
+                descricao:
+                  type: string
+                  description: Descrição da disciplina. É um campo obrigatório.
+                  example: Disciplina fundamental para o aprendizado de programação.
+              required:
+                - nome
+                - descricao
+      responses:
+        '201':
+          description: Disciplina criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Disciplina'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Nome é obrigatório ou já existe"
+
+  /disciplinas/{id}:
+    put:
+      tags:
+        - discipline
+      summary: Atualizar uma disciplina existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da disciplina a ser atualizada.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: Nome da disciplina. Deve ser único.
+                  example: Algoritmos Avançados
+                descricao:
+                  type: string
+                  description: Descrição da disciplina. É um campo obrigatório.
+                  example: Disciplina avançada para o aprendizado de programação.
+              required:
+                - nome
+                - descricao
+      responses:
+        '200':
+          description: Disciplina atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Disciplina'
+        '404':
+          description: Disciplina não encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Disciplina não encontrada"
+
+    delete:
+      tags:
+        - discipline
+      summary: Deletar uma disciplina
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da disciplina a ser deletada.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Disciplina deletada com sucesso
+        '404':
+          description: Disciplina não encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Disciplina não encontrada"
+  /enrollment:
+    get:
+      tags:
+        - enrollment
+      summary: Listar todas as matrículas
+      responses:
+        '200':
+          description: Lista de matrículas retornada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Matricula'
+
+    post:
+      tags:
+        - enrollment
+      summary: Criar uma nova matrícula
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                alunoId:
+                  type: integer
+                  description: ID do aluno que está sendo matriculado.
+                  example: 123
+                cursoId:
+                  type: integer
+                  description: ID do curso no qual o aluno está sendo matriculado.
+                  example: 1
+              required:
+                - alunoId
+                - cursoId
+      responses:
+        '201':
+          description: Matrícula criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Matricula'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Aluno ou curso inválido"
+
+
+components:
+  schemas:
+    Curso:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do curso.
+          example: 1
+        nome:
+          type: string
+          description: Nome do curso. Deve ser único.
+          example: Engenharia da Computação
+        descricao:
+          type: string
+          description: Descrição do curso. É um campo obrigatório.
+          example: Curso de Engenharia com foco em desenvolvimento de software.
+        disciplinas:
+          type: array
+          items:
+            type: string
+          description: Lista de disciplinas associadas ao curso. Não deve haver mais de 5 disciplinas.
+
+    Disciplina:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID da disciplina.
+          example: 1
+        nome:
+          type: string
+          description: Nome da disciplina. Deve ser único.
+          example: Algoritmos
+        descricao:
+          type: string
+          description: Descrição da disciplina. É um campo obrigatório.
+          example: Disciplina que ensina os fundamentos da programação.
+        cursoId:
+          type: integer
+          description: ID do curso ao qual a disciplina pertence.
+          example: 1
+
+    Matricula:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID da matrícula.
+          example: 1
+        alunoId:
+          type: integer
+          description: ID do aluno que está matriculado.
+          example: 1
+        cursoId:
+          type: integer
+          description: ID do curso no qual o aluno está matriculado.
+          example: 1
+        dataMatricula:
+          type: string
+          format: date
+          description: Data em que a matrícula foi realizada.
+          example: "2024-01-15"            
+  
