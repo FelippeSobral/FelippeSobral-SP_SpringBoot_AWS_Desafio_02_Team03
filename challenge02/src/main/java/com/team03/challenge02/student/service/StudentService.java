@@ -1,13 +1,12 @@
 package com.team03.challenge02.student.service;
 
-import com.team03.challenge02.course.entity.Course;
-import com.team03.challenge02.course.repository.CourseRepository;
+import com.team03.challenge02.exception.AdressInvalidException;
 import com.team03.challenge02.security.JwtTokenService;
 import com.team03.challenge02.security.UserDetailsImpl;
 import com.team03.challenge02.student.dto.StudentDto;
 import com.team03.challenge02.student.dto.mapper.StudentMapper;
 import com.team03.challenge02.student.entity.Student;
-import com.team03.challenge02.student.exception.AdressInvalidException;
+
 import com.team03.challenge02.student.repository.StudentRepository;
 import com.team03.challenge02.student.viacep.ViaCepClient;
 import com.team03.challenge02.teacher.dto.LoginRequest;
@@ -15,7 +14,6 @@ import com.team03.challenge02.teacher.dto.RecoveryJwtTokenDTO;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,26 +31,15 @@ import java.util.List;
 public class StudentService {
 
     private final StudentRepository studentRepository;
-    private final CourseRepository courseRepository;
     private final ViaCepClient viaCepClient;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
 
-    @Autowired
-    public StudentService(StudentRepository studentRepository, ViaCepClient viaCepClient, CourseRepository courseRepository, PasswordEncoder passwordEncoder,AuthenticationManager authenticationManager, JwtTokenService jwtTokenService) {
-        this.studentRepository = studentRepository;
-        this.viaCepClient = viaCepClient;
-        this.courseRepository = courseRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenService = jwtTokenService;
-    }
 
     @Transactional
     public Student save(StudentDto studentDto) {
-        Course course = courseRepository.findById(studentDto.course()).orElseThrow(EntityNotFoundException::new);
-        Student student = StudentMapper.toStudent(studentDto,course);
+        Student student = StudentMapper.toStudent(studentDto);
 
         try { if (student.getAdress() != null) {
             var adress = viaCepClient.getAdress(student.getAdress());

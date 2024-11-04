@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class StudentMapper {
 
-    public static Student toStudent(StudentDto studentDto, Course course) {
+    public static Student toStudent(StudentDto studentDto) {
         if (studentDto == null) {
             return null;
         }
@@ -20,7 +20,6 @@ public class StudentMapper {
         student.setLastName(studentDto.lastName());
         student.setEmail(studentDto.email());
         student.setBirthDate(studentDto.birthDate());
-        student.setCourse(course);
         student.setAdress(studentDto.adress());
         student.setPassword(studentDto.password());
         student.setRole(Role.valueOf("ROLE_" + studentDto.role().toUpperCase()));
@@ -39,7 +38,6 @@ public class StudentMapper {
                 student.getLastName(),
                 student.getEmail(),
                 student.getBirthDate(),
-                course != null ? course.getId() : null,
                 student.getAdress(),
                 student.getPassword(),
                 student.getRole().name().substring("ROLE_".length()).toUpperCase()

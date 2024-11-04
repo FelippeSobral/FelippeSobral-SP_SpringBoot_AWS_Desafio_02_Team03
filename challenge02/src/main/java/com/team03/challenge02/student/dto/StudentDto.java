@@ -25,7 +25,7 @@ public record StudentDto (
      @Past(message = "Birth date must be in the past")
      @JsonFormat(pattern = "yyyy-MM-dd")
      LocalDate birthDate,
-     Long course,
+
      String adress,
      String password,
      String role
