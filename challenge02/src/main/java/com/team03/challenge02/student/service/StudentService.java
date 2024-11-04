@@ -47,7 +47,6 @@ public class StudentService {
         this.passwordEncoder = passwordEncoder;
     }*/
 
-    //Método criado para teste de segurança
     @Transactional
     public Student save2(Student student) {
         student.setPassword(passwordEncoder.encode(student.getPassword()));
