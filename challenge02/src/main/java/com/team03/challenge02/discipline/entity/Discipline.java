@@ -39,7 +39,7 @@ public class Discipline implements Serializable {
     private Teacher substituteTeacher;
 
     @JoinTable(
-            name = "tb_discipline_student", // Nome da tabela de junção
+            name = "tb_discipline_student",
             joinColumns = @JoinColumn(name = "discipline_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     @ManyToMany
