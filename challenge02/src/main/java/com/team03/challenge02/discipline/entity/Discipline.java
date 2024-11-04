@@ -1,21 +1,19 @@
 package com.team03.challenge02.discipline.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import com.team03.challenge02.course.entity.Course;
 import com.team03.challenge02.student.entity.Student;
 import com.team03.challenge02.teacher.entity.Teacher;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,8 +28,8 @@ public class Discipline implements Serializable {
     private Long id;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @Column (name = "discription", nullable = false)
-    private String discription;
+    @Column (name = "description", nullable = false)
+    private String description;
 
     @JoinColumn(name = "full_teacher_id", nullable = false)
     @ManyToOne
@@ -51,6 +49,8 @@ public class Discipline implements Serializable {
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
+
+
 
     @Override
     public boolean equals(Object o) {
