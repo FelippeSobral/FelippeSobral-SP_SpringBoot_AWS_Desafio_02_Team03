@@ -1,6 +1,7 @@
 package com.team03.challenge02.coordinator.controller;
 
 import com.team03.challenge02.coordinator.dto.CoordinatorDTO;
+import com.team03.challenge02.coordinator.dto.PassworDTO;
 import com.team03.challenge02.coordinator.dto.mapper.CoordinatorMapper;
 import com.team03.challenge02.coordinator.entity.Coordinator;
 import com.team03.challenge02.coordinator.service.CoordinatorService;
@@ -48,10 +49,16 @@ public class CoordinatorController {
         return ResponseEntity.ok().body(dto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public ResponseEntity<Coordinator> update(@PathVariable Long id, @RequestBody Coordinator coordinator){
         Coordinator cr = service.update(id, coordinator);
         return ResponseEntity.ok().body(cr);
+    }
+
+    @PutMapping("/email/{email}")
+    public ResponseEntity<Coordinator> updatePassword(@PathVariable String email, @Valid @RequestBody PassworDTO pass){
+        Coordinator user1 = service.updatePassword(email, pass);
+        return ResponseEntity.ok().body(user1);
     }
 
     @PostMapping("/login")

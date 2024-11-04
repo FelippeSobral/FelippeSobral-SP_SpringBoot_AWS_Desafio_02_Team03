@@ -43,16 +43,12 @@ public class RegistrationServices {
     }
 
     public List<RegistrationDTO> listRegistrationsByStudent(Long studentId) {
+        studentRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
         return registrationRepository.findAllByStudentId(studentId)
                 .stream()
                 .map(registration -> new RegistrationDTO(registration.getId(), studentId, registration.getCourse().getId()))
                 .collect(Collectors.toList());
     }
 
-    public void deleteRegistration(Long registrationId) {
-        if (!registrationRepository.existsById(registrationId)) {
-            throw new EntityNotFoundException("Registration not found");
-        }
-        registrationRepository.deleteById(registrationId);
-    }
 }

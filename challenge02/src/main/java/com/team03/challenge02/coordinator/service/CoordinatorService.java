@@ -1,5 +1,6 @@
 package com.team03.challenge02.coordinator.service;
 
+import com.team03.challenge02.coordinator.dto.PassworDTO;
 import com.team03.challenge02.coordinator.entity.Coordinator;
 import com.team03.challenge02.coordinator.repository.CoordinatorRepository;
 import com.team03.challenge02.exception.EntityIdNotFoundException;
@@ -51,8 +52,24 @@ public class CoordinatorService {
             cr.setDisciplinas(coordinator.getDisciplinas());
             cr.setBirthDate(coordinator.getBirthDate());
         } catch (org.springframework.transaction.TransactionSystemException ex) {
-            throw  new NameUniqueViolationException(String.format("Preencha os campos"));
+            throw  new NameUniqueViolationException(String.format("Fill in the fields"));
         }
+        return repository.save(cr);
+    }
+
+    public Coordinator findByEmail(String email){
+        return repository.findByEmail(email);
+    }
+
+    public Coordinator updatePassword(String email, PassworDTO passworDTO){
+        Coordinator cr = findByEmail(email);
+        if (!cr.getPassword().equals(passworDTO.getCurrentPassword())){
+            throw new RuntimeException("Incorrect password");
+        }
+        if (!passworDTO.getNewPassword().equals(passworDTO.getRepetePassword())){
+            throw new RuntimeException("Different password");
+        }
+        cr.setPassword(passworDTO.getNewPassword());
         return repository.save(cr);
     }
 

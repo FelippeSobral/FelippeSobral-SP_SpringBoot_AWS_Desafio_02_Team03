@@ -52,8 +52,9 @@ public class SecurityConfiguration {
             "api/student"
     };
 
-    public static final String[] ENDPOINTS_COORDINATOR = {
-            "api/coordinator"
+    public static final String[] POST_ENDPOINTS_COORDINATOR = {
+            "/api/coordinator",
+            "/api/course"
     };
 
     @Bean
@@ -67,7 +68,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, GET_ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .requestMatchers(HttpMethod.POST, POST_ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_STUDENTS).hasRole("STUDENT")
-                        .requestMatchers(HttpMethod.GET, ENDPOINTS_COORDINATOR).hasRole("COORDINATOR")
+                        .requestMatchers(HttpMethod.POST, POST_ENDPOINTS_COORDINATOR).hasRole("COORDINATOR")
                         .anyRequest().denyAll())
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

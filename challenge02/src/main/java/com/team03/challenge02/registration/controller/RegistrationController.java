@@ -1,6 +1,5 @@
 package com.team03.challenge02.registration.controller;
 
-
 import com.team03.challenge02.registration.Services.RegistrationServices;
 import com.team03.challenge02.registration.dto.RegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class RegistrationController {
 private RegistrationServices registrationServices;
 
 @PostMapping
-@PreAuthorize("hasRole('ROLE_COORDINATOR')")
+@PreAuthorize("hasRole('COORDINATOR')")
 public ResponseEntity<RegistrationDTO> createRegistration(@RequestBody RegistrationDTO registrationDTO) {
     RegistrationDTO newRegistration = registrationServices.createRegistration(registrationDTO.student_id(), registrationDTO.course_id());
     return ResponseEntity.status(HttpStatus.CREATED).body(newRegistration);
@@ -30,19 +29,5 @@ public ResponseEntity<List<RegistrationDTO>> listRegistrations(@PathVariable Lon
     List<RegistrationDTO> registrations = registrationServices.listRegistrationsByStudent(student_id);
     return ResponseEntity.ok(registrations);
 }
-
-@DeleteMapping("/{id}")
-@PreAuthorize("hasRole('ROLE_COORDINATOR')")
-public ResponseEntity<Void> deleteRegistration(@PathVariable Long id) {
-    registrationServices.deleteRegistration(id);
-    return ResponseEntity.noContent().build();
-}
-
-
-
-
-
-
-
 
 }

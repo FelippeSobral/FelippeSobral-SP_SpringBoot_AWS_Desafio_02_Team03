@@ -22,6 +22,7 @@ public class StudentMapper {
         student.setBirthDate(studentDto.birthDate());
         student.setCourse(course);
         student.setAdress(studentDto.adress());
+        student.setPassword(studentDto.password());
         student.setRole(Role.valueOf("ROLE_" + studentDto.role().toUpperCase()));
 
         return student;
@@ -31,15 +32,16 @@ public class StudentMapper {
         if (student == null) {
             return null;
         }
-
-        return new StudentDto(
+        Course course = student.getCourse();
+        return  new StudentDto(
                 student.getId(),
                 student.getFirstName(),
                 student.getLastName(),
                 student.getEmail(),
                 student.getBirthDate(),
-                student.getCourse() ,
+                course != null ? course.getId() : null,
                 student.getAdress(),
+                student.getPassword(),
                 student.getRole().name().substring("ROLE_".length()).toUpperCase()
         );
     }

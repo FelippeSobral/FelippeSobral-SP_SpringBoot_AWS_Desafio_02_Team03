@@ -29,3 +29,4 @@ public class Registration {
     private Course course;
 
 }
+
