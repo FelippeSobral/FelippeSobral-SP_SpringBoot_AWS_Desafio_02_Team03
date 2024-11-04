@@ -26,7 +26,6 @@ public class Student extends Person implements Serializable, UserEntity {
 
     private String adress;
 
-    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)

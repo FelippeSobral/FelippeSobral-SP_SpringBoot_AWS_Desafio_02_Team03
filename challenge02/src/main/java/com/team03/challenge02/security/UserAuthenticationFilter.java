@@ -19,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 @Component
@@ -77,24 +78,25 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    /*private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
-        return !Arrays.asList(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
-    }*/
-
     private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        String method = request.getMethod(); // Captura o método HTTP da requisição
+        String method = request.getMethod();
 
         if ("GET".equalsIgnoreCase(method)) {
-            // Verifica se o endpoint GET não requer autenticação
-            return !Arrays.asList(SecurityConfiguration.GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
+            return !matchesAnyPattern(requestURI, SecurityConfiguration.GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED);
         } else if ("POST".equalsIgnoreCase(method)) {
-            // Verifica se o endpoint POST não requer autenticação
-            return !Arrays.asList(SecurityConfiguration.POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).contains(requestURI);
+            return !matchesAnyPattern(requestURI, SecurityConfiguration.POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED);
         }
 
-        // Por padrão, assume que endpoints de outros métodos requerem autenticação
         return true;
+    }
+
+    private boolean matchesAnyPattern(String uri, String[] patterns) {
+        for (String pattern : patterns) {
+            if (Pattern.matches(pattern.replace("*", ".*"), uri)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
