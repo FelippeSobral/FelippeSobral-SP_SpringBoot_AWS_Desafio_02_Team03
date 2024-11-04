@@ -43,6 +43,8 @@ public class RegistrationServices {
     }
 
     public List<RegistrationDTO> listRegistrationsByStudent(Long studentId) {
+        studentRepository.findById(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
         return registrationRepository.findAllByStudentId(studentId)
                 .stream()
                 .map(registration -> new RegistrationDTO(registration.getId(), studentId, registration.getCourse().getId()))

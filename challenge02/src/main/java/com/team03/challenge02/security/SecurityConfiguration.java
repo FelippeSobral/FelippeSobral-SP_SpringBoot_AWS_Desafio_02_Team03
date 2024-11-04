@@ -55,7 +55,8 @@ public class SecurityConfiguration {
     };
 
     public static final String[] ENDPOINTS_COORDINATOR = {
-            "api/coordinator"
+            "api/coordinator",
+            "api/registration"
     };
 
     @Bean
@@ -66,6 +67,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
                         .requestMatchers(HttpMethod.GET, GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED).permitAll()
+                        .requestMatchers(HttpMethod.POST,ENDPOINTS_COORDINATOR).hasRole("COORDINATOR")
                         .requestMatchers(HttpMethod.GET, GET_ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .requestMatchers(HttpMethod.POST, POST_ENDPOINTS_TEACHER).hasRole("TEACHER")
                         .requestMatchers(HttpMethod.GET, ENDPOINTS_STUDENTS).hasRole("STUDENT")
