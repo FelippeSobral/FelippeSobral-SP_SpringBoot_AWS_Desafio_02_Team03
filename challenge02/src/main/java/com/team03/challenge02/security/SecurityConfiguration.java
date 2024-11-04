@@ -31,7 +31,9 @@ public class SecurityConfiguration {
 
     public static final String[] GET_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/api/course/**",
-            "/api/course/id/*"
+            "/api/course/id/*",
+            "/api/disciplines",
+            "/api/disciplines/*"
     };
 
     public static final String[] GET_ENDPOINTS_TEACHER = {
