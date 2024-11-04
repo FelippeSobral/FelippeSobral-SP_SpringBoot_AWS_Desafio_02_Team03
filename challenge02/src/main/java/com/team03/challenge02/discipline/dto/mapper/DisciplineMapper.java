@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DisciplineMapper {
 
-    public DisciplineDto toDto(Discipline discipline) {
+    public static DisciplineDto toDto(Discipline discipline) {
         return new DisciplineDto(
                 discipline.getId(),
                 discipline.getName(),

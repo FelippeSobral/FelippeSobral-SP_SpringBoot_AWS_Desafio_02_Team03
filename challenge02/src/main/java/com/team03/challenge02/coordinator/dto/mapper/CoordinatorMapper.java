@@ -2,9 +2,10 @@ package com.team03.challenge02.coordinator.dto.mapper;
 
 import com.team03.challenge02.coordinator.dto.CoordinatorDTO;
 import com.team03.challenge02.coordinator.entity.Coordinator;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class CoordinatorMapper {
 
     public static CoordinatorDTO toDto(Coordinator coordinator){
