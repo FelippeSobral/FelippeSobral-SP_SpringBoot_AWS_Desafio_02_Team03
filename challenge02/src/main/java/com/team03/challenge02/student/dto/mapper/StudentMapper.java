@@ -22,7 +22,6 @@ public class StudentMapper {
         student.setBirthDate(studentDto.birthDate());
         student.setAdress(studentDto.adress());
         student.setPassword(studentDto.password());
-        student.setRole(Role.valueOf("ROLE_" + studentDto.role().toUpperCase()));
 
         return student;
     }
@@ -39,8 +38,7 @@ public class StudentMapper {
                 student.getEmail(),
                 student.getBirthDate(),
                 student.getAdress(),
-                student.getPassword(),
-                student.getRole().name().substring("ROLE_".length()).toUpperCase()
+                student.getPassword()
         );
     }
 

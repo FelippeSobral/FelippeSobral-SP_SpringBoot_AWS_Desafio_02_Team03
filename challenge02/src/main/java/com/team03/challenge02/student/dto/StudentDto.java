@@ -27,8 +27,8 @@ public record StudentDto (
      LocalDate birthDate,
 
      String adress,
-     String password,
-     String role
+     String password
+
      )
 {
 }

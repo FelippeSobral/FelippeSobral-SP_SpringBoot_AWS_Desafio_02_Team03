@@ -25,7 +25,7 @@ public class SecurityConfiguration {
     public static final String[] POST_ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/api/teacher/login",
             "/api/student/login",
-            "/api/student/two",
+            "/api/student",
             "/api/coordinator/login"
     };
 
@@ -33,6 +33,7 @@ public class SecurityConfiguration {
             "/api/course/id/*",
             "/api/course/name/*",
             "/api/course",
+            "/api/student",
             "/api/disciplines",
             "/api/disciplines/*"
     };

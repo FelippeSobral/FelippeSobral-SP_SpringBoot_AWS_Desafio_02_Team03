@@ -1,6 +1,6 @@
 package com.team03.challenge02.exception;
 
-import com.team03.challenge02.student.exception.ErrorMessage;
+import com.team03.challenge02.exception.ErrorMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
