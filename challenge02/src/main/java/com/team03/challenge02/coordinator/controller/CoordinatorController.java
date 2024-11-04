@@ -42,7 +42,7 @@ public class CoordinatorController {
         return ResponseEntity.ok().body(list1);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CoordinatorDTO> findById(@PathVariable Long id){
         Coordinator coordinator = service.findById(id);
         CoordinatorDTO dto = CoordinatorMapper.toDto(coordinator);
