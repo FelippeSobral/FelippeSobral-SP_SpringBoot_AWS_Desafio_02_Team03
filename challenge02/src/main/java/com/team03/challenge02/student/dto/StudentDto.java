@@ -30,5 +30,4 @@ public record StudentDto (
      String password
 
      )
-{
-}
+{}
