@@ -39,24 +39,19 @@ public class StudentService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
 
-    /*@Autowired
-    public StudentService(StudentRepository studentRepository, ViaCepClient viaCepClient, CourseRepository courseRepository, PasswordEncoder passwordEncoder) {
+    @Autowired
+    public StudentService(StudentRepository studentRepository, ViaCepClient viaCepClient, CourseRepository courseRepository, PasswordEncoder passwordEncoder,AuthenticationManager authenticationManager, JwtTokenService jwtTokenService) {
         this.studentRepository = studentRepository;
         this.viaCepClient = viaCepClient;
         this.courseRepository = courseRepository;
         this.passwordEncoder = passwordEncoder;
-    }*/
-
-    //Método criado para teste de segurança
-    @Transactional
-    public Student save2(Student student) {
-        student.setPassword(passwordEncoder.encode(student.getPassword()));
-        return studentRepository.save(student);
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Transactional
     public Student save(StudentDto studentDto) {
-        Course course = courseRepository.findById(studentDto.course().getId()).orElseThrow(EntityNotFoundException::new);
+        Course course = courseRepository.findById(studentDto.course()).orElseThrow(EntityNotFoundException::new);
         Student student = StudentMapper.toStudent(studentDto,course);
 
         try { if (student.getAdress() != null) {
@@ -89,6 +84,13 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    @Transactional
+    public void delete(long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new IllegalArgumentException("Student not found with id: " + id);
+        }
+        studentRepository.deleteById(id);
+    }
     public RecoveryJwtTokenDTO authenticateUser(@Valid LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.email(), loginRequest.password());

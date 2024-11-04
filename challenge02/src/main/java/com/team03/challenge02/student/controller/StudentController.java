@@ -30,11 +30,7 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(StudentMapper.toStudentDto(newStudent));
     }
 
-    @PostMapping("/two")
-    public ResponseEntity<StudentDto> save2(@Valid @RequestBody Student student) {
-        Student newStudent = studentService.save2(student);
-        return ResponseEntity.status(HttpStatus.CREATED).body(StudentMapper.toStudentDto(newStudent));
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id) {
@@ -47,6 +43,9 @@ public class StudentController {
         List<Student> students = studentService.getAll();
         List<StudentDto> studentDtos = StudentMapper.toListDTO(students);
         return ResponseEntity.ok(studentDtos);
+    }
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/login")
