@@ -6,11 +6,11 @@ import com.team03.challenge02.discipline.dto.DisciplineDto;
 import com.team03.challenge02.discipline.dto.mapper.DisciplineMapper;
 import com.team03.challenge02.discipline.entity.Discipline;
 import com.team03.challenge02.discipline.repository.DisciplineRepository;
-
 import com.team03.challenge02.student.entity.Student;
 import com.team03.challenge02.student.repository.StudentRepository;
 import com.team03.challenge02.teacher.entity.Teacher;
 import com.team03.challenge02.teacher.repository.TeacherRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
